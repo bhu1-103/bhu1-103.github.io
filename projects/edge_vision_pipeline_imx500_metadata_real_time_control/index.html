@@ -177,12 +177,30 @@
 
     <section id="section06">
       <h3>Finishing the loop: Button Input</h3>
-       There are 2 methods to do this. But I will only be following one of the methods:
-       <ul>
-         <li><mark>2x Servo Motors:</mark> using servo motors to press the physical keys on a keyboard or a controller.</li>
-         <li><mark>USB Gadget Mode:</mark> using RPi with USB Gadget Mode where it can pretend to be a USB HID device and send inputs directly via usb cable.</li>
-       </ul>
-       I will personally go with the USB Gadget Mode idea.
+      There are 2 methods to do this. But I will only be following one of the methods:
+      <ul>
+        <li><mark>2x Servo Motors:</mark> using servo motors to press the physical keys on a keyboard or a controller.</li>
+        <li><mark>USB Gadget Mode:</mark> using RPi with USB Gadget Mode where it can pretend to be a USB HID device and send inputs directly via usb cable.</li>
+      </ul>
+      I will personally go with the USB Gadget Mode idea. To enable USB Gadget Mode, these 2 files have to be changed ⇣<br>
+      <ul>
+        <li><code>sudo nvim /boot/firmware/config.txt</code> under <code>[all]</code> i added <code>dtoverlay=dwc2</code></li>
+        <li><code>sudo nvim /boot/firmware/cmdline.txt</code> added <code>modules-load=dwc2</code></li>
+      </ul>
+      Upon restarting the RPi, I checked the <mark>USB Device Controllers</mark> available.
+      <img class="doc" src="./16.png">
+      Now that I have a USB controller, the RPi can <mark>pretend to be a keyboard</mark> or controller.<br>
+      I added <mark>libcompossite</mark> to the modules using: <code>echo libcomposite | sudo tee -a /etc/modules</code>.<br>
+      I also wrote a script to initialize the usb gadget.<br>
+      <img class="doc" src="./17.png">
+      I have designed this module called <a class="links2" href="idk">fake_keyboard.py</a> which is basically a dictionary of all keyboard keys and has functions to do things like this ⇣
+      <video class="doc" autoplay muted loop playsinline>
+        <source src="./18.mp4" type="video/mp4">
+      </video>
+      Here, the RPi (left side window) is pretending to be a keyboard and typing things on my computer (right side small window). I ran the <code>hack.py</code> script on my RPi via <mark>SSH</mark>.
+
+
+
     </section>
 
     </div>
