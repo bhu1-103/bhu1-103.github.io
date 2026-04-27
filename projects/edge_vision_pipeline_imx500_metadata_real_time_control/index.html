@@ -26,7 +26,7 @@
       </blockquote>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>15 years later...<br>I'm still trying to beat the game ^_^"</p></div></div>
-    <img class="doc" src="./1.png" alt="Edge Vision Pipeline: IMX500 → Metadata → Real-Time Control" class="project-image">
+    <img class="doc" src="./1.png" alt="Edge Vision Pipeline: IMX500 → Metadata → Real-Time Control">
     <br>
     <p class="quick-summary">I’ve revisited this idea multiple times (ずっとずっと) since my university hackathons, where I initially relied on basic OpenCV techniques like color masking. Those approaches felt limited, so I rebuilt the system using the Sony IMX500, running a custom fine-tuned YOLO11 model directly on the sensor. The system operates on metadata only, sending results to a Raspberry Pi (I'll refer to it as RPi from now on) Zero 2 W to drive real-time control via USB HID, forming a low-latency vision → action loop without transferring image data.</p>
     <div class="project-details">
@@ -197,11 +197,34 @@
       <video class="doc" autoplay muted loop playsinline>
         <source src="./18.mp4" type="video/mp4">
       </video>
-      Here, the RPi (left side window) is pretending to be a keyboard and typing things on my computer (right side small window). I ran the <code>hack.py</code> script on my RPi via <mark>SSH</mark>.
+      </div>
+      <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Is it over?<br>No more<br>"TO BE CONTINUED..."?</p></div></div>
+      <div class="project-details">
+      Here, the RPi (left side window) is pretending to be a keyboard and typing things on my computer (right side small window). I ran the <code>hack.py</code> script on my RPi via <mark>SSH</mark>.<br>
+      Then, I wrote some logic for the program to make the RPi use the YOLO bounding boxes to move the player.<br>
 
-
-
+      As previously mentioned, I set a few rules in <a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/logic_old.py">logic.py</a>⇣ (in no particular order)<br>
+      <ul>
+        <li><mark>Always hit the Gas</mark></li>
+        <li><mark>Release the Gas Pedal</mark> when <code>player[width] > player[height]</code> - meaning, player has hit an enemy or obstacle and is spinning out.</li>
+        <li>If the bounding boxes of <mark>player</mark> ever <mark>overlaps with an enemy</mark> - <code>Release the Gas Pedal</code></li>
+        <li>Priority to <code>stay in the center</code> of the road using <mark> the 2 nearest lane_markings to the player</mark> and they are averaged.</li>
+        <li>Player car width is found using YOLO, to find road width, we simply <code>road_width = player_width * 6</code>. This <mark>avoids crashing</mark> on the side of the road. Found through screenshot + paint program pixel analysis.</li>
+        <li>Path finding (left/right) is done based on a <code>score</code>. Ignores gaps smaller than <code>player_width</code> and uses <code>score = DistanceToGap - (GapWidth*0.1)</code>. Huge gap -> Higher score. Small gap -> Lesser score. Algorithm prefers larger score.</li>
+        <li>If there is an enemy car in front of the player, <code>steer left or right</code> based on <mark>which side</mark> the <code>gap</code> is.</li>
+        <li><mark>Track enemies</mark> every frame and store positions to <code>find velocity</code> of next 2 frames and <code>predict</code> where the enemy will be by the next few frames to <mark>dodge</mark> an incoming enemy car. Velocity is ignored if <code>Vx < (player_width * 0.15)</code>. This is just a relaxant for jitter.</li>
+        <li>If there are <mark>too many enemies</mark> on the screen, Gas Pedal is released, so that enemies go <code>out of frame and despawn</code></li>
+        <li>There is a <mark>line of sight</mark> straight ahead of the player, where if any enemy appears, action from the above algorithms is taken. The line of sight is from the top of the screen until <code>player_pos + player_height * 1.05</code>. The 1.05 product is just to make it jitter proof a bit.</li>
+      </ul>
+      All the above rules have relaxants in them to avoid the YOLO jitter as I was using the smallest YOLO model possible. <br> <br>
     </section>
+    
+  <h3>Thank You</h3>
+  Since we have come so far....<br>
+  here is a demo of the <code>Autonomous Game Player</code>
+    <div class="doc">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/RxO37FOcdfs?si=5uoeg1fSh8ePkpSf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
 
     </div>
     <br>
