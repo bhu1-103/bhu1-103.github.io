@@ -487,7 +487,7 @@ h2:after {
 
 .haiku {
   font-family: 'DynaPuff', system-ui, sans-serif;
-  font-style: ; /*change*/
+  /*font-style: ; /*change*/*/
   font-size: 1.2rem;
   color: var(--text);
   line-height: 1.6;
@@ -597,7 +597,7 @@ ol li {
   padding-left: 3rem;
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  color: var(--muted);/
+  color: var(--muted);
 }
 
 ol li::before {
