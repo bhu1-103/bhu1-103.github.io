@@ -627,6 +627,7 @@ ol li:hover::before {
   padding-left: 0;
 }
 
+.video-iframe,
 video.doc,
 img.doc {
   max-width: 90%;
@@ -645,6 +646,8 @@ h3 {
     2px 2px 4px var(--counter),
     -2px -2px 6px var(--balance);
 }
+
+
 
 @media (max-width: 600px) {
   .container {
