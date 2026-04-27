@@ -31,7 +31,7 @@
     <p class="quick-summary">I’ve revisited this idea multiple times (ずっとずっと) since my university hackathons, where I initially relied on basic OpenCV techniques like color masking. Those approaches felt limited, so I rebuilt the system using the Sony IMX500, running a custom fine-tuned YOLO11 model directly on the sensor. The system operates on metadata only, sending results to a Raspberry Pi (I'll refer to it as RPi from now on) Zero 2 W to drive real-time control via USB HID, forming a low-latency vision → action loop without transferring image data.</p>
     <div class="project-details">
       <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have less accuracy scores when compared to yolo11.<br>
-      The main outcome of this project is to use a <mark>Raspberry Pi</mark> and a <mark>DSP enabled Camera</mark> to play the video game → <mark>Road Fighter</mark>.
+      The main outcome of this project is to use a <mark>Raspberry Pi</mark> and a <mark>NPU enabled Camera</mark> to play the video game → <mark>Road Fighter</mark>.
       </p>
       <p><strong>Table of contents →</strong></p>
       <ol>
@@ -149,7 +149,7 @@
         <li>To my surprise, the <mark>end-to-end latency = 35ms</mark> on average. Yes, this is the round trip latency.<br>
           It includes ⇣
           <ul>
-            <li>├── <mark>YOLO Inference</mark> → Camera runs YOLO on the DSP and identifies the objects</li>
+            <li>├── <mark>YOLO Inference</mark> → Camera runs YOLO on the NPU and identifies the objects</li>
             <li>├── <mark>Camera sends the information to the Pi</mark></li>
             <li>├── <mark>RPi does post processing on the data</mark> → This is where the logic lives</li>
             <li>└── <mark>RPi prints it to the terminal</mark></li>
