@@ -631,7 +631,7 @@ video.doc,
 img.doc {
   max-width: 90%;
   height: auto;
-  max-height: 800px;
+  max-height: 500px;
   display: block;
   margin: 1.5rem auto;
   border-radius: 4px;
