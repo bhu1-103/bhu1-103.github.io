@@ -31,7 +31,7 @@
     <br>
     <p class="quick-summary">I’ve revisited this idea multiple times (ずっとずっと) since my university hackathons, where I initially relied on basic OpenCV techniques like color masking. Those approaches felt limited, so I rebuilt the system using the Sony IMX500, running a custom fine-tuned YOLO11 model directly on the sensor. The system operates on metadata only, sending results to a Raspberry Pi (I'll refer to it as RPi from now on) Zero 2 W to drive real-time control via USB HID, forming a low-latency vision → action loop without transferring image data.</p>
     <div class="project-details">
-      <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have less accuracy scores when compared to yolo11.<br>
+      <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have lower accuracy scores when compared to yolo11.<br>
       The main outcome of this project is to use a <mark>Raspberry Pi</mark> and a <mark>NPU enabled Camera</mark> to play the video game → <mark>Road Fighter</mark>.
       </p>
       <p><strong>Table of contents →</strong></p>
@@ -77,7 +77,7 @@
         <li>Since the training was happening so quickly on my GPU, I decided to let it run and watch how it performs by the end of 60 epochs. It reached the <mark>~0.9 mAP50</mark> scores with <mark>~0.9 Recall</mark> which is pretty good. It also produced a good <mark>mAP50-95</mark> score of <mark>~0.74</mark> by the last epoch which is really good for my use case as the game in question uses simple sprites and the YOLO model's capture rate being <mark>16 frames per second</mark>, the model would recognize objects at least once in 2 or 3 frames in the worst case scenario.
           <img class="doc" loading="lazy" decoding="async" src="./5.png"></li>
         <li>I initially thought class imbalance would be a problem as there are <code>Lane-Markings</code> in every single image of the dataset, that is why some classes like <code>Obstacle</code> <mark>(0.497)</mark>, <code>Fuel</code> <mark>(0.663)</mark> and <code>Enemy-Blue-Bad</code> <mark>(0.753)</mark> have relatively bad <mark>mAP50</mark> scores. But the model works fine overall.<br>
-          A better solution instead of depending on the "it might get detected at least once in 2 frames" hope, I could add more images of the classes that have very less labels to balance the dataset and train the model again. That will defnitely get the model to near perfect results, given the simiplicity of the classes.
+          A better solution instead of depending on the "it might get detected at least once in 2 frames" hope, I could add more images of the classes that have very less labels to balance the dataset and train the model again. That will definitely get the model to near perfect results, given the simplicity of the classes.
           <img class="doc" loading="lazy" decoding="async" src="./6.png"></li>
       </ul>
     </section>
