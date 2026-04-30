@@ -498,7 +498,7 @@ h2:after {
   border-left: 3px solid var(--balance);
   border-right: 3px solid var(--balance);
   margin: 40px 0;
-  max-width: 600px;
+  max-width: 100%;
 }
 
 .haiku:before {
