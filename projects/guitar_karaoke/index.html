@@ -21,12 +21,12 @@
 
     <div class="project-intro">
       <blockquote class="haiku">
-        There's a way to do it better -<br>
-        find it.<br>
-        - Thomas A. Edison
+        Do what you like to do -<br>
+        not what others like<br>
+        - Me
       </blockquote>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Hello There</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>It's like I can reverse engineer music now?<br>creepy... (⁀⊙﹏☉⁀)</p></div></div>
     <img src="./1.png" class="doc" loading="lazy" height="100" decoding="async" alt="Guitar Karaoke" class="project-image">
     <br>
     <p class="quick-summary">I recently got a guitar and found out that most of the guitar learning tools cost money, subscriptions even. It took me ~2 months to learn how to play by ear using trial-error, therefore I made this program for myself where I use Demucs, Whisper, ffmpeg and some tinkering to make this shell script that produces one mkv file that has the original version, a vocal karaoke version, a guitar karaoke version and a backing track along with automatic lyrics. The mkv video file can be played on any device that has VLC or a similar media player installed.</p>
@@ -61,11 +61,21 @@
               <li><code>htdemucs_ft</code> → [ft - Fine Tuned] This one is arguably the better model in terms of raw accuracy as it is a bag of 4 models, but it misses one crucial thing I am interested in. The guitar stem...
                 <img class="doc" loading="lazy" decoding="async" src="./3.png"><br></li>
             </ul>
-          <li>I was in a fix what model to use. That's when I got an idea. I tested it out with multiple songs and came up with these equations.
+
+          <li>I was in a fix what model to use. That's when I got an idea. I tested it out with multiple songs and came up with these equations. As seen in the image below, I used <code>bass.wav</code>, <code>drums.wav</code> and <code>vocals.wav</code> from <mark>demucs_ft</mark> and <code>other.wav</code>, <code>piano.wav</code> from <mark>demucs_6s</mark>.</li>
+          </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>I was so excited when I figured this out that I got up to get a glass of water (rare event)</p></div></div>
+    <div class="project-details">
+          <ul>
             <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="ffmpeg mixing code with a clever mix of demucs-ft and demucs-6s stems">
-            As seen in the image above, I used <code>bass.wav</code>, <code>drums.wav</code> and <code>vocals.wav</code> from <mark>demucs_ft</mark> and <code>other.wav</code>, <code>piano.wav</code> from <mark>demucs_6s</mark>.</li>
           <li>I followed the same stem selection process for <mark>Vocals Karaoke</mark> and <mark>Backing Track</mark>.</li>
           <img class="doc" loading="lazy" decoding="async" src="./6.png"><br></li>
+          </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>AAC (.m4a) is the only thing popularized by Apple I can accept<br>Oh, and maybe ipods</p></div></div>
+    <div class="project-details">
+          <ul>
           <li>The reason I used <code>-b:a 320k</code> and <code>.m4a</code> is because <mark>AAC</mark> audio with <mark>320 kbps</mark> is basically the same quality (almost) as lossless <mark>.wav</mark> file but almost 1/5th the size.
           <li>I initially thought I might come across problems because, but then I thought of this → <code><strong>demucs_ft[ other.wav ] = demucs_6s[ other.wav + guitar.wav + piano.wav ]</strong></code>. It must be fool proof, keeping the performance of the models aside.
           <li>Both the models take a little over a minute for a standard 4 minute song combined.</li>
@@ -78,11 +88,21 @@
           <li>Once the venv setup was done, I used the cli to get the lyrics for a song using the following code snippet.
           <img class="doc" loading="lazy" decoding="async" src="./5.png"><br></li>
           <li>It produced a <mark>.srt</mark> file. It's just like a simple text file with timestamps of the subtitles, in our case, lyrics.</li>
-          <li>I tried to use whisper's fork → <a class="links2" href="https://github.com/m-bain/whisperX">whisperX</a> as it can highlight each word at the exact time it was said in the audio, like how Karaoke actually works. Unfortunately, my GPU is too old and does not support the CUDA version required for using whisperX.</li>
+          </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Tch (ᗒᗣᗕ)՞<br>What a bummer</p></div></div>
+    <div class="project-details">
+          <ul>
+          <li>I tried to use whisper's fork → <a class="links2" href="https://github.com/m-bain/whisperX">whisperX</a> as it can highlight each word at the exact time it was said in the audio, like how Karaoke actually works. Unfortunately, my GPU is too old and does not support the CUDA version required for using whisperX. I also tried using an older version of whisperX but then got into dependency hell. I decided I will work on the auto-generated lyrics later and moved on, for now.</li>
           <li>Now that the audio files and the auto-generated lyrics are ready, we can add all of the produced files into a single <mark>.mkv</mark> container.</li>
           <li><mark>Trivia:</mark> A .mkv container, also called <mark>Matroska Video</mark> is one of the most versatile video formats, it can contain multiple video streams, subtitles and also audio tracks. This is the format used when we used to watch Hollywood movies 15+ years ago which had subtitles of almost every single language.</li>
           <li>I used <code>ffmpeg</code>, once again, to combine all of the <mark>.m4a</mark> audio tracks and lyrics <mark>.srt</mark> file.
           <img class="doc" loading="lazy" decoding="async" src="./7.png"><br></li>
+          </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>I should load these to my ipod once it finishes charging...<br>It's been charging for a month now (⋟﹏⋞)</p></div></div>
+    <div class="project-details">
+          <ul>
           <li>Once this is finished, there is some cleanup to do. And then, we can play the video on any media player.<br>For example, I use <mark>VLC Media Player</mark> here.
           <img class="doc" loading="lazy" decoding="async" src="./9.png">
           <img class="doc" loading="lazy" decoding="async" src="./10.png"></li>
@@ -94,6 +114,9 @@
           <li>Now that the file can be played anywhere, I thought of making a custom <mark>Karaoke Player</mark> using <a class="links2" href="https://www.pygame.org/docs/">PyGame</a>.</li>
           <li>It took a while, but it was ready. A custom player where all instruments react in their own way and also enable or disable. Here is the video. </li>
         </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Damn, time to play that song by<br>Mazzy Star</p></div></div>
+    <div class="project-details">
           <iframe class="video-iframe" loading="lazy" src="https://www.youtube.com/embed/Khyecia-kVg?si=NYMvcqkfzhtN22Zw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </section>
 
