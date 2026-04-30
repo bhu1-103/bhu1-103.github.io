@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Bhuvan's Project with - ">
-  <title>bhu1</title>
+  <title>Guitar Karaoke</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="../../assets/styles/styles.css">
@@ -37,7 +37,7 @@
         <li><a class="links2" href="#section01">Files</a></li>
         <li><a class="links2" href="#section02">Splitting the song into individual instruments</a></li>
         <li><a class="links2" href="#section03">Auto-Generate Lyrics and Mixing</a></li>
-        <li><a class="links2" href="#section05">Custom Player</a></li>
+        <li><a class="links2" href="#section04">Custom Player</a></li>
       </ol>
     <br>
       <section id="section01">
@@ -47,7 +47,7 @@
           <li>I used <a class="links2" href="https://github.com/ranger/ranger">ranger</a>, a terminal-based file manager as the UI to choose the song.</li>
           <li>Since <mark>demucs</mark> uses ffmpeg in the background and converts any file to <mark>.wav</mark>, I did no conversion after selecting the file.</li>
           <li>Initialised the necessary variables and directories.
-            <img class="doc" loading="lazy" decoding="async" src="./8.png"><br></li></li>
+            <img class="doc" loading="lazy" decoding="async" src="./8.png"><br></li>
         </ul>
       </section>
       <section id="section02">
@@ -62,7 +62,7 @@
                 <img class="doc" loading="lazy" decoding="async" src="./3.png"><br></li>
             </ul>
           <li>I was in a fix what model to use. That's when I got an idea. I tested it out with multiple songs and came up with these equations.
-            <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="ffmpeg mixing code with a clever mix of demucs-ft and demucs-6s stems"><br>
+            <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="ffmpeg mixing code with a clever mix of demucs-ft and demucs-6s stems">
             As seen in the image above, I used <code>bass.wav</code>, <code>drums.wav</code> and <code>vocals.wav</code> from <mark>demucs_ft</mark> and <code>other.wav</code>, <code>piano.wav</code> from <mark>demucs_6s</mark>.</li>
           <li>I followed the same stem selection process for <mark>Vocals Karaoke</mark> and <mark>Backing Track</mark>.</li>
           <img class="doc" loading="lazy" decoding="async" src="./6.png"><br></li>
@@ -88,10 +88,10 @@
           <img class="doc" loading="lazy" decoding="async" src="./10.png"></li>
           <li>We can see the metadata of the file above. This file can be played on phone, laptop, etc. Any device supporting VLC Media Player or a similar app will be able to have the <mark>Karaoke experience</mark>.</li>
         </ul>
-      <section id="section05">
+      <section id="section04">
         <h3>Custom Player</h3>
         <ul>
-          <li>Now that the file can be played anywhere, I thought of making a custom <mark>Karaoke Player</mark> using <a class="links2" href="">PyGame</a>.</li>
+          <li>Now that the file can be played anywhere, I thought of making a custom <mark>Karaoke Player</mark> using <a class="links2" href="https://www.pygame.org/docs/">PyGame</a>.</li>
           <li>It took a while, but it was ready. A custom player where all instruments react in their own way and also enable or disable. Here is the video. </li>
         </ul>
       </section>
