@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Bhuvan's Project with - ">
+  <title>bhu1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/styles/styles.css">
+  <link rel="icon" href="../../favicon.ico">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="liquid-overlay"></div>
+    <div class="top-bar">
+      <h1 class="main-heading">Guitar Karaoke</h1>
+      <a href="../../projects.html" class="projects-btn back-btn">back</a>
+    </div>
+
+    <div class="project-intro">
+      <blockquote class="haiku">
+        There's a way to do it better -<br>
+        find it.<br>
+        - Thomas A. Edison
+      </blockquote>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Hello There</p></div></div>
+    <img src="./1.png" class="doc" loading="lazy" height="100" decoding="async" alt="Guitar Karaoke" class="project-image">
+    <br>
+    <p class="quick-summary">I recently got a guitar and found out that most of the guitar learning tools cost money, subscriptions even. It took me ~2 months to learn how to play by ear using trial-error, therefore I made this program for myself where I use Demucs, Whisper, ffmpeg and some tinkering to make this shell script that produces one mkv file that has the original version, a vocal karaoke version, a guitar karaoke version and a backing track along with automatic lyrics. The mkv video file can be played on any device that has VLC or a similar media player installed.</p>
+    <div class="project-details">
+      <p>Ever since I got my guitar, I've been paying more attention to the <mark>Instruments</mark> rather than the song as a whole. After a long time (I didn't like the song earlier), I listened to this song → <a class="links2" href="https://www.youtube.com/watch?v=SSbBvKaM6sk">Blur - Song 2</a>. I felt like I could try playing along and get better at playing guitar. That's when I remembered what <code>demucs</code> could do and started working on this project.</p>
+      <p><strong>Table of contents →</strong></p>
+      <ol>
+        <li><a class="links2" href="#section01">Files</a></li>
+        <li><a class="links2" href="#section02">Splitting the song into individual instruments</a></li>
+        <li><a class="links2" href="#section03">Auto-Generate Lyrics and Mixing</a></li>
+        <li><a class="links2" href="#section05">PyGame Visualizer</a></li>
+      </ol>
+    <br>
+      <section id="section01">
+        <h3>Files</h3>
+        <ul>
+          <li><a class="links2" href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> is the tool I used to download the song from youtube. Youtube's best audio format is in <mark>.webm</mark>, so I downloaded the song in that format.</li>
+          <li>I used <a class="links2" href="https://github.com/ranger/ranger">ranger</a>, a terminal-based file manager as the UI to choose the song.</li>
+          <li>Since <mark>demucs</mark> uses ffmpeg in the background and converts any file to <mark>.wav</mark>, I did no conversion after selecting the file.</li>
+          <li>Created the necessary variables and directories as seen in the <a class="links2" href="https://github.com/bhu1-103/guitar-karaoke/blob/9e5b4bc9c4031700159d140ff6c236231aaad524/karaoke-generate#L21">code</a>.
+        </ul>
+      </section>
+      <section id="section02">
+        <h3>Splitting the song into individual instruments</h3>
+        <ul>
+          <li>I used <a class="links2" href="https://github.com/adefossez/demucs">demucs</a> by Meta, to split the song into various stems as seen <a class="links2" href="https://github.com/adefossez/demucs#separating-tracks">here</a>. I was mainly interested in two of them -
+            <ul>
+              <li>
+                <code>htdemucs_6s</code> → [6s - 6 stems] This is the most versatile demucs model. It can split up a song into these stems.
+                <img class="doc" loading="lazy" decoding="async" src="./2.png"><br></li>
+              <li><code>htdemucs_ft</code> → [ft - Fine Tuned] This one is arguably the better model in terms of raw accuracy as it is a bag of 4 models, but it misses one crucial thing I am interested in. The guitar stem...
+                <img class="doc" loading="lazy" decoding="async" src="./3.png"><br></li>
+            </ul>
+          <li></li>
+          <li>I was in a fix what model to use. That's when I got an idea. I tested it out with multiple songs and came up with these equations.
+            <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="ffmpeg mixing code with a clever mix of demucs-ft and demucs-6s stems"><br>
+            As seen in the image above, I used <code>bass.wav</code>, <code>drums.wav</code> and <code>vocals.wav</code> from <mark>demucs_ft</mark> and <code>other.wav</code>, <code>piano.wav</code> from <mark>demucs_6s</mark>.</li>
+          <li>I followed the same stem selection process for <mark>Vocals Karaoke</mark> and <mark>Backing Track</mark>.</li>
+          <img class="doc" loading="lazy" decoding="async" src="./6.png"><br></li>
+          <li>The reason I used <code>-b:a 320k</code> and <code>.m4a</code> is because <mark>AAC</mark> audio with <mark>320 kbps</mark> is basically like a lossless <mark>.wav</mark> file.
+          <li>I initially thought I might come across problems because, but then I thought of this → <code><strong>demucs_ft[other.wav] = demucs_6s[other.wav + guitar.wav + piano.wav]</strong></code>. It must be fool proof, keeping the performance of the models aside.
+          <li>Both the models take a little over a minute for a standard 4 minute song combined.</li>
+        </ul>
+      </section>
+      <section id="section03">
+        <h3>Auto-Generate Lyrics</h3>
+        <ul>
+          <li>Since we now had <mark>vocals.wav</mark>, we can directly use <a class="links2" href="https://github.com/openai/whisper">whisper</a>, by OpenAI to auto-generate the lyrics. This is not very promising, but is okay for now.</li>
+          <li>Once the venv setup was done, I used the cli to get the lyrics for a song using the following code snippet.
+          <img class="doc" loading="lazy" decoding="async" src="./5.png"><br></li>
+          <li>I tried to use whisper's fork → <a class="links2" href="https://github.com/m-bain/whisperX">whisperX</a> as it can highlight each word at the exact time it was said in the audio, like how Karaoke actually works. Unfortunately, my GPU is too old and does not support the CUDA version required for using whisperX.</li>
+          <li>Now that the audio files and the </li>
+        </ul>
+      <section id="section05">
+        <h3>Fine-Tuning on custom dataset</h3>
+        <ul>
+          <li><a class="links2" href="">ok</a> → </li>
+          <li><a class="links2" href="">ok</a> → </li>
+          <li><a class="links2" href="">ok</a> → </li>
+        </ul>
+      </section>
+
+    </div>
+    <br>
+    <div class="links">
+      <a href="https://github.com/bhu1-103">Github</a>
+      <a href="mailto:103.bhuvan@gmail.com">Email</a>
+      <a href="https://orcid.org/0009-0005-8233-1317">ORCiD</a>
+    </div>
+
+  </div>
+
+  <script src="../../assets/scripts/liquid-overlay.js"></script>
+
+</body>
+</html>
