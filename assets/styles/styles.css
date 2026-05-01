@@ -497,7 +497,7 @@ h2:after {
   position: relative;
   border-left: 3px solid var(--balance);
   border-right: 3px solid var(--balance);
-  margin: 40px auto;
+  margin: auto 0;
   max-width: 70%;
 }
 
