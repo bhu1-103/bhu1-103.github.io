@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Bhuvan's Project with - ">
+  <title>bhu1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../../assets/styles/styles.css">
+  <link rel="icon" href="../../favicon.ico">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="liquid-overlay"></div>
+    <div class="top-bar">
+      <h1 class="main-heading">Distributed DIY Voice Assistant</h1>
+      <a href="../../projects.html" class="projects-btn back-btn">back</a>
+    </div>
+
+    <div class="project-intro">
+      <blockquote class="haiku">
+        Do what you like to do -<br>
+        not what others like<br>
+        - Me
+      </blockquote>
+    </div>
+
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-skyblue-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>My online friends made fun of me because I didn't have a mic.<br>So I made my own mic using my Game Console.<br>That mic evolved into a node for my voice assistant.</p></div></div>
+    <img src="./1.png" class="doc" loading="lazy" height="100" decoding="async" alt="Distributed DIY Voice Assistant" class="project-image">
+    <br>
+    <p class="quick-summary">I was unable to afford a microphone, so I made use of my PS Vita as a microphone and ended up using Dear ImGui to make a custom client app for my PS Vita to connect with my computer that is running my custom voice assistant using an Ollama model and lots of algorithms, rules and fuzzy logic.</p>
+    <p>Initially I made a single node version of this using my laptop and it's inbuilt mic. You can check the below video.</p>
+    <iframe class="video-iframe-small" loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/K2AmdQhL7ic?si=wJUnaew_41XoIEKr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/guitar-karaoke">View GitHub repo hereCHANGECHANGECHANGECHANGE</a></div></strong>
+    <div class="project-details">
+      <p><strong>Table of contents →</strong></p>
+      <ol>
+        <li><a class="links2" href="#section01">Setting up the Environment</a></li>
+        <li><a class="links2" href="#section02">Sending Audio over WiFi</a></li>
+        <li><a class="links2" href="#section03">Server Setup</a></li>
+        <li><a class="links2" href="#section04">Section</a></li>
+        <li><a class="links2" href="#section05">Section</a></li>
+        <li><a class="links2" href="#section06">Section</a></li>
+        <li><a class="links2" href="#section07">Section</a></li>
+      </ol>
+    <br>
+      <section id="section01">
+        <h3>Setting up the Environment</h3>
+        <ul>
+          <li>My PS Vita was the only device I had which had a mic and could stay on my desk for a long time. Also, my PSV is <code>hacked/jailbroken</code> and can run custom code. Therefore, I decided to use it.</li>
+          <li>I first installed <a class="links2" href="https://vitasdk.org/">vitasdk</a>, which is the environment to make homebrew apps for PSV. I grabbed the code for <mark>sample apps</mark> from the <a class="links2" href="">Official Github</a> and compiled a hello world program to check if it would run. After compiling, it produced a <code>.vpk</code> file which works like an android <code>.apk</code> file in design. They both are fancy zip files with rules for where the files should be copied to, etc.<br>Once I moved the file to my PSV via FTP and installed it, I could see the hello world program working.</li>
+          <img class="doc" loading="lazy" decoding="async" src="./2.png" alt="Hello world program (using vitasdk) where "Pls Work" is printed 20 times">
+        </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Hmmm...<br>Those Hexadecimal numbers?<br>Seems like I can transfer it to my PC via WiFi to make a DIY wireless Mic to make calls.
+        </p></div></div>
+    <div class="project-details">
+          <ul>
+            <li>The hello world program worked, similarly I found the <mark>sample code</mark> for using the mic to make a volume meter. I compiled and installed it. It was working.</li>
+          <img class="doc" loading="lazy" decoding="async" src="./3.png" alt="Microphone test code running. It has various hexadecimal numbers -> the microphone data">
+          <li>And that's how this epic journey began.</li>
+        </ul>
+      </section>
+      <section id="section02">
+        <h3>Sending audio via WiFi</h3>
+        <ul>
+          <li>I copied the boilerplate code from the <mark>samples</mark> to setup a network. I used <code>SCE_NET_SOCK_DGRAM</code> to setup an UDP network. I chose UDP because I first wanted to check if PSV's <code>2.4 GHz 802.11n WiFi</code>(it does not match true 802.11n speeds though, I only get a max of around 2 megabytes/sec)is good enough for modern standards. Surprisingly, it worked very well → given my router is literally above my computer monitor.</li>
+          <li>Connecting something via wifi requires an <code>IP Address</code>. Initially I had <mark>hardcoded</mark> the IP Address of my computer, but since I also use my laptop sometimes, it was not ideal to hardcode. So I used <mark>file operations</mark> to read the IP Address from a file instead: <br>→ <code>sceNetInetPton(SCE_NET_AF_INET, SERVER_IP, &server_audio.sin_addr)</code><br>→ <code>server_audio.sin_port = sceNetHtons(SERVER_PORT)</code><br></li>
+          <li><code>#define NET_PARAM_MEM_SIZE (1*1024*1024)</code> → This is how much space is alotted for the networking stack of the entire program. <code>1*1024*1024</code> here means <mark>1 mb → networking stack ram</mark>.</li> 
+          <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="Code for the network stack">
+          </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>I used port 2012 because I had this feeling of impending doom when I was writing the code for this.<br>Therefore -> 2012.<br>(。﹏。) don't ask...</p></div></div>
+    <div class="project-details">
+          <ul>
+          <li>After this, I created a socket  called <code>mic_socket</code> at port <code>2012</code>.</li>
+          <img class="doc" loading="lazy" decoding="async" src="./5.png" alt="Code for the network stack">
+          <li><code>sceNetSendto(sock, cmd, strlen(cmd), 0,(SceNetSockaddr*)server_addr, sizeof(*server_addr))</code>. Now that the WiFi initialization is done, this is the function used to do the real WiFi communication.</li>
+          <li>I could have implemented TCP here, but I honestly saw almost <mark>no upsides to using TCP</mark> in my case. Let's say I setup this socket to be TCP. If I walk a bit far away from my router, it would guarantee the data reaching the server no matter what. But this is a <mark>Real-Time System</mark>. We cannot afford packets to arrive in late and form a huge queue and cause a <mark>Buffer Delay</mark> with <mark>worse latency</mark>. That's why I stayed with UDP despite it's inconsistency.</li>
+          <img class="doc" loading="lazy" decoding="async" src="./6.png" alt="Mic init code">
+          </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>やった<br>Math time<br>(ﾐ^ᆽ^ﾐ)</p></div></div>
+    <div class="project-details">
+          <ul>
+          <li>Since in mic definitions,<br><code>SCE_AUDIO_IN_PARAM_FORMAT_S16_MONO</code><br>→ S16 means <mark>16-bit audio</mark> and <mark>MONO</mark> means single channel audio<br>→ It means each sample is 2 bytes.<br><code>int grain = 256</code>,<br><code>short</code> is 2 bytes,<br>Payload size is <mark>512 bytes</mark><br>Ideal network speed required for this is:<br><code>「16,000 samples/sec ÷ 256 samples/sec」= 62.5 packets/sec</code><br><code>「62.5 packets/sec x 512 bytes」 = 32,000 bytes/sec</code><br>Which is <mark>256 kbps</mark>, which is entirely doable by PSV.</li>
+          <li>If even one of this packet misses due to me being far away from router, the server will just drop the extra packets and only consider the live packets. Whereas, if I was using <mark>TCP</mark>, it would have stacked up a huge buffer and made everything very jittery.</li>
+          <li>This system so far behaves like a raw <mark>Walkie-Talkie</mark>. A future improvement I would like to add is usage of <code>libopus</code> as that would make the required speed of <mark>256 kbps</mark> go down to <mark>32 kbps</mark>, 8x smaller size.</li>
+        </ul>
+      </section>
+      <section id="section03">
+        <h3>Server Setup (The Receiver End)</h3>
+        <ul>
+          <li>Since I use <a class="links2" href="https://archlinux.org/">Linux</a> and <a class="links2" href="https://wiki.archlinux.org/title/PipeWire">PipeWire</a> I can use the <code>pacat</code> command line utility like so to create a fake audio device<br>.</li>
+        </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Only Walkie.<br>No Walkie-Talkie yet.<br>Until I implement 2 way communication.<br>(｡╯︵╰｡)</p></div></div>
+    <div class="project-details">
+        <ul>
+          <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="pacat code to create an audio sink">
+          <li>The <mark>microphone audio</mark> of my PSV was now audible on my headphones. To use this as a normal microphone, I could simply open <mark>PAVU (PulseAudio Volume Utility)</mark> and set input device to a software sink, named <mark>Walkie</mark>.</li>
+          <li>In pacat, I used <code>AUDIO_FORMAT = 's16le'</code> and other values from <a class="links2" href="#section02">earier</a> along with other values like IP Address, Socket port number, number of channels, etc.</li>
+          <li>Now that the basics were working, I thought of using <a class="links2" href="https://alphacephei.com/vosk/">vosk</a>, a <mark>lightweight speech recognition library</mark> in python I had first seen in <a class="links2" href="https://www.youtube.com/watch?v=hXKF47jzq7A">BugsWriter</a>'s youtube channel.</li>
+          <li>Vosk is an <mark>ASR</mark> program that can convert speech to text. The model size for english is around 40 mb, which is really tiny. I used it and it worked really well, despite being a very low end lightweight model. I went with vosk and not whisper because this is a voice assistant that runs at all the time, using whisper would take like 1 gb of my vram for the whole day. Upon that, I had a few tricks up my sleeve, check <a class="links2" href="sectionCHANGECHANGECHANGE">CHANGECHANGECGANGECHA here</a></li>
+          <li><a class="links2" href="">ok</a> → </li>
+        </ul>
+      </section>
+      <section id="section04">
+        <h3>Fine-Tuning on custom dataset</h3>
+        <ul>
+          <li><a class="links2" href="">ok</a> → </li>
+          <li><a class="links2" href="">ok</a> → </li>
+          <li><a class="links2" href="">ok</a> → </li>
+        </ul>
+      </section>
+      <section id="section05">
+        <h3>Fine-Tuning on custom dataset</h3>
+        <ul>
+          <li>PSV is home to many homebrew UI libraries. First I tried using the <a class="links2" href="https://www.opengl.org/">OpenGL (by Team Khronos)</a> implementation in PSV → <a class="links2" href="https://github.com/Rinnegatamante/vitaGL">VitaGL (Ported by Rinne)</a>.</li>
+          </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>it's basically my test code which i use to test graphical capabilities of various hardware. yes, it runs everywhere, like doom.</p></div></div>
+    <div class="project-details">
+          <ul>
+          <li>I was successfully able to port my <a class="links2" href="https://github.com/bhu1-103/swiss-army-katana/tree/main/opengl/synthwave">synthwave.h library</a> (written in C) to PSV as seen in the image below.</li>
+          <img class="doc" loading="lazy" decoding="async" src="./99.png">
+
+          <li><a class="links2" href="">ok</a> → </li>
+          <li><a class="links2" href="">ok</a> → </li>
+        </ul>
+      </section>
+
+    </div>
+    <br>
+    <div class="links">
+      <a href="https://github.com/bhu1-103">Github</a>
+      <a href="mailto:103.bhuvan@gmail.com">Email</a>
+      <a href="https://orcid.org/0009-0005-8233-1317">ORCiD</a>
+    </div>
+
+  </div>
+
+  <script src="../../assets/scripts/liquid-overlay.js"></script>
+
+</body>
+</html>
