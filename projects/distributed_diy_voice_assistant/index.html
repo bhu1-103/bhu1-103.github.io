@@ -68,7 +68,7 @@
         <ul>
           <li>I copied the boilerplate code from the <mark>samples</mark> to setup a network. I used <code>SCE_NET_SOCK_DGRAM</code> to setup a UDP network. I chose UDP because I first wanted to check if PSV's <code>2.4 GHz 802.11n WiFi</code> (it does not match true 802.11n speeds though, I only get a max of around 2 megabytes/sec)is good enough for modern standards. Surprisingly, it worked very well → given my router is literally above my computer monitor.</li>
           <li>Connecting something via wifi requires an <code>IP Address</code>. Initially I had <mark>hardcoded</mark> the IP Address of my computer, but since I also use my laptop sometimes, it was not ideal to hardcode. So I used <mark>file operations</mark> to read the IP Address from a file instead: <br>→ <code>sceNetInetPton(SCE_NET_AF_INET, SERVER_IP, &server_audio.sin_addr)</code><br>→ <code>server_audio.sin_port = sceNetHtons(SERVER_PORT)</code><br></li>
-          <li><code>#define NET_PARAM_MEM_SIZE (1*1024*1024)</code> → This is how much space is allotted for the networking stack of the entire program. <code>1*1024*1024</code> here means <mark>1 mb → networking stack ram</mark>.</li> 
+          <li><code>#define NET_PARAM_MEM_SIZE (1*1024*1024)</code> → This is how much space is allotted for the networking stack of the entire program. <code>1*1024*1024</code> here means <mark>1 MB → networking stack RAM</mark>.</li> 
           <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="Code for the network stack">
           </ul>
     </div>
@@ -78,7 +78,7 @@
           <li>After this, I created a socket  called <code>mic_socket</code> at port <code>2012</code>.</li>
           <img class="doc" loading="lazy" decoding="async" src="./5.png" alt="Code for the network stack">
           <li><code>sceNetSendto(sock, cmd, strlen(cmd), 0,(SceNetSockaddr*)server_addr, sizeof(*server_addr))</code>. Now that the WiFi initialization is done, this is the function used to do the real WiFi communication.</li>
-          <li>I could have implemented TCP here, but I honestly saw almost <mark>no upsides to using TCP</mark> in my case. Let's say I setup this socket to be TCP. If I walk a bit far away from my router, it would guarantee the data reaching the server no matter what. But this is a <mark>Real-Time System</mark>. We cannot afford packets to arrive in late and form a huge queue and cause a <mark>Buffer Delay</mark> with <mark>worse latency</mark>. That's why I stayed with UDP despite it's inconsistency.</li>
+          <li>I could have implemented TCP here, but I honestly saw almost <mark>no upsides to using TCP</mark> in my case. Let's say I setup this socket to be TCP. If I walk a bit far away from my router, it would guarantee the data reaching the server no matter what. But this is a <mark>Real-Time System</mark>. We cannot afford packets to arrive in late and form a huge queue and cause a <mark>Buffer Delay</mark> with <mark>worse latency</mark>. That's why I stayed with UDP despite its inconsistency.</li>
           <img class="doc" loading="lazy" decoding="async" src="./6.png" alt="Mic init code">
           </ul>
     </div>
@@ -102,8 +102,8 @@
           <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="pacat code to create an audio sink">
           <li>The <mark>microphone audio</mark> of my PSV was now audible on my headphones. To use this as a normal microphone, I could simply open <mark>PAVU (PulseAudio Volume Utility)</mark> and set input device to a software sink, named <mark>Walkie</mark>.</li>
           <li>In pacat, I used <code>AUDIO_FORMAT = 's16le'</code> (signed 16-bit little Endian) and other values from <a class="links2" href="#section02">earlier</a> along with other values like IP Address, Socket port number, number of channels, etc.</li>
-          <li>Now that the basics were working, I thought of using <a class="links2" href="https://alphacephei.com/vosk/">vosk</a>, a <mark>lightweight speech recognition library</mark> in python I had first seen in <a class="links2" href="https://www.youtube.com/watch?v=hXKF47jzq7A">BugsWriter</a>'s youtube channel.</li>
-          <li>Vosk is an <mark>ASR</mark> program that can convert speech to text. The model size for English is around 40 mb, which is really tiny. I used it and it worked really well, despite being a very low end lightweight model. I went with vosk and not whisper because this is a voice assistant that runs at all the time, using whisper would take like 1 gb of my VRAM for the whole day. Upon that, I had a few tricks up my sleeve, check <a class="links2" href="section04">here</a></li>
+          <li>Now that the basics were working, I thought of using <a class="links2" href="https://alphacephei.com/vosk/">vosk</a>, a <mark>lightweight speech recognition library</mark> in python I had first seen in <a class="links2" href="https://www.youtube.com/watch?v=hXKF47jzq7A">BugsWriter</a>'s YouTube channel.</li>
+          <li>Vosk is an <mark>ASR</mark> program that can convert speech to text. The model size for English is around 40 MB, which is really tiny. I used it and it worked really well, despite being a very low end lightweight model. I went with vosk and not whisper because this is a voice assistant that runs at all the time, using whisper would take like 1 GB of my VRAM for the whole day. Upon that, I had a few tricks up my sleeve, check <a class="links2" href="section04">here</a></li>
           <li>Every voice assistant has to talk back. I experimented with many <mark>TTS Engines</mark> and finally decided on using <a class="links2" href="https://github.com/rhasspy/piper">Piper TTS</a>, a lightweight TTS engine that sounds more natural than minimalistic ones like <a class="links2" href="https://github.com/espeak-ng/espeak-ng">espeak-ng</a>. In the future I thought of training a piper model with my own voice, but I need a good microphone for it. Or maybe I'll come up with an alternative method to do it. I was using the <mark>libritts_r</mark> voice model from the models released by rhasspy.</li>
           <li>Now that the assistant can <mark>hear and speak</mark>, it was time to give it some logic/rules to work with. Here's a basic function for using piper and playing the audio. I use <a class="links2" href="https://github.com/dunst-project/dunst">dunst</a> as my notification manager to show notification on my desktop in case I'm not using headphones.</li>
           <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="code snippet for speak() function">
@@ -111,12 +111,10 @@
       </section>
       <section id="section04">
         <h3>Voice Assistant (alter-ego)</h3>
-        </ul>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>It's called alter-ego because this project was heavily inspired by <a class="links2" href="https://danganronpa.fandom.com/wiki/Chihiro_Fujisaki">Chihiro</a> from Danganronpa.</p></div></div>
     <div class="project-details">
-          <ul>
-         I then made a few rules like <code>"open browser": lambda: (speak("Opening browser"), send2vita("Opening browser"), notify("Opening Browser"), subprocess.Popen(["zen-browser"]))</code>
+      <p>I then made a few rules like <code>"open browser": lambda: (speak("Opening browser"), send2vita("Opening browser"), notify("Opening Browser"), subprocess.Popen(["zen-browser"]))</code></p>
         <ul>
           <li><code>"open firefox"</code> → If user says "open firefox" then: do something</li>
           <li><code>speak("Opening browser")</code> → It says, "opening browser" in a human-like voice</li>
@@ -125,14 +123,14 @@
           <li><code>subprocess.Popen(["zen-browser"])</code> → Runs the actual command using subprocess</li>
         </ul>
           <img class="doc" loading="lazy" decoding="async" src="./9.png" alt="command dictionary">
-        <p align="center">Here are some more example commands which demonstrate the assistant being able to do system level tasks like changing volume, brightness, keyboard backlight, taking a screenshot, opening youtube, etc.</p>
-          But the assistant was <mark>not perfect</mark> when I tried to use it. Since vosk converts human speech to english, a slight difference in accent could make it misunderstand the command and not do anything at all, as it's not defined in it's command dictionary. Therefore, I implemented a <mark>Fuzzy Logic selection method</mark> using <a class="links2" href="https://github.com/rapidfuzz/RapidFuzz">RapidFuzz</a> to make sure it can narrow down what the user has said to something in the command dictionary.<br>
+        <p align="center">Here are some more example commands which demonstrate the assistant being able to do system level tasks like changing volume, brightness, keyboard backlight, taking a screenshot, opening YouTube, etc.</p>
+          But the assistant was <mark>not perfect</mark> when I tried to use it. Since vosk converts human speech to English, a slight difference in accent could make it misunderstand the command and not do anything at all, as it's not defined in it's command dictionary. Therefore, I implemented a <mark>Fuzzy Logic selection method</mark> using <a class="links2" href="https://github.com/rapidfuzz/RapidFuzz">RapidFuzz</a> to make sure it can narrow down what the user has said to something in the command dictionary.<br>
           <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="fuzzy matching code snippet">
-          <p align="center">Fuzzy Logic means checking how similar 2 strings are instead of a strict binary output like <code>both are same</code> or <code>both are not the same</code>. It gives a score on how similar the 2 strings are.</p>
-        <ul>
+          <p align="center">Fuzzy Logic means checking how similar 2 strings are, instead of a strict binary output like <code>both are same</code> or <code>both are not the same</code>. It gives a score on how similar the 2 strings are.</p>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Simple, effective,<br>elegant<br>ヽ(´▽｀)/</p></div></div>
     <div class="project-details">
+        <ul>
           <li>I can say something like "open browser please" and the fuzzy matcher will match it with every single command and realise that it is an 80% match to the "open browser" command.</li>
           <li>It uses <a class="links2" href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance</a> → How many steps it takes to change from <mark>command</mark> to <mark>input text</mark>.</li>
           <li><code>fuzz.partial_ratio(command, text)</code> → partial_ratio() means it checks partially. For example, I could say something like "open browser please" and it would still execute "open browser" command.</li>
@@ -146,7 +144,7 @@
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>This was done because once I was yelling at myself "shut up" and it fuzzy matched it to "shutdown" and shutdown my PC...</p></div></div>
     <div class="project-details">
         <ul>
-          <li>Vosk is set to transcribe everything everytime. If it ever hears the word <mark>hey</mark>, it will start listening for commands. Otherwise, it will not run any commands.</li>
+          <li>Vosk is set to transcribe everything every time. If it ever hears the word <mark>hey</mark>, it will start listening for commands. Otherwise, it will not run any commands.</li>
           <li>If it hears the <mark>Wake Word</mark>, it speaks back and I can tell it to do anything in the <mark>command dictionary</mark>.</li>
           <li>There are a few special commands like <code>selection</code> where I can select some text and ask the assistant to explain about the selected text. For this, I used <a class="links2" href="https://ollama.com/">Ollama</a>. The specific model I used is <code>Qwen 2.5 0.5b</code>. It's a tiny and very capable model for this use case.</li>
         </ul>
