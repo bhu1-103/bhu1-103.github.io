@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -33,17 +33,16 @@
     <p class="quick-summary">I was unable to afford a microphone, so I made use of my PS Vita as a microphone and ended up using Dear ImGui to make a custom client app for my PS Vita to connect with my computer that is running my custom voice assistant using an Ollama model and lots of algorithms, rules and fuzzy logic.</p>
     <p>Initially I made a single node version of this using my laptop and it's inbuilt mic. You can check the below video.</p>
     <iframe class="video-iframe-small" loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/K2AmdQhL7ic?si=wJUnaew_41XoIEKr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/guitar-karaoke">View GitHub repo hereCHANGECHANGECHANGECHANGE</a></div></strong>
+    <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/alter-ego/tree/main/v2-vita-mic">View GitHub repo for server here</a></div></strong>
+    <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/homebrew/tree/main/vita/alter-ego-v5.0">View GitHub repo for client here</a></div></strong>
     <div class="project-details">
       <p><strong>Table of contents →</strong></p>
       <ol>
         <li><a class="links2" href="#section01">Setting up the Environment</a></li>
         <li><a class="links2" href="#section02">Sending Audio over WiFi</a></li>
         <li><a class="links2" href="#section03">Server Setup</a></li>
-        <li><a class="links2" href="#section04">Section</a></li>
-        <li><a class="links2" href="#section05">Section</a></li>
-        <li><a class="links2" href="#section06">Section</a></li>
-        <li><a class="links2" href="#section07">Section</a></li>
+        <li><a class="links2" href="#section04">Voice Assistant</a></li>
+        <li><a class="links2" href="#section05">Client App</a></li>
       </ol>
     <br>
       <section id="section01">
@@ -101,22 +100,61 @@
         <ul>
           <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="pacat code to create an audio sink">
           <li>The <mark>microphone audio</mark> of my PSV was now audible on my headphones. To use this as a normal microphone, I could simply open <mark>PAVU (PulseAudio Volume Utility)</mark> and set input device to a software sink, named <mark>Walkie</mark>.</li>
-          <li>In pacat, I used <code>AUDIO_FORMAT = 's16le'</code> and other values from <a class="links2" href="#section02">earier</a> along with other values like IP Address, Socket port number, number of channels, etc.</li>
+          <li>In pacat, I used <code>AUDIO_FORMAT = 's16le'</code> (signed 16-bit little Endian) and other values from <a class="links2" href="#section02">earier</a> along with other values like IP Address, Socket port number, number of channels, etc.</li>
           <li>Now that the basics were working, I thought of using <a class="links2" href="https://alphacephei.com/vosk/">vosk</a>, a <mark>lightweight speech recognition library</mark> in python I had first seen in <a class="links2" href="https://www.youtube.com/watch?v=hXKF47jzq7A">BugsWriter</a>'s youtube channel.</li>
-          <li>Vosk is an <mark>ASR</mark> program that can convert speech to text. The model size for english is around 40 mb, which is really tiny. I used it and it worked really well, despite being a very low end lightweight model. I went with vosk and not whisper because this is a voice assistant that runs at all the time, using whisper would take like 1 gb of my vram for the whole day. Upon that, I had a few tricks up my sleeve, check <a class="links2" href="sectionCHANGECHANGECHANGE">CHANGECHANGECGANGECHA here</a></li>
-          <li><a class="links2" href="">ok</a> → </li>
+          <li>Vosk is an <mark>ASR</mark> program that can convert speech to text. The model size for english is around 40 mb, which is really tiny. I used it and it worked really well, despite being a very low end lightweight model. I went with vosk and not whisper because this is a voice assistant that runs at all the time, using whisper would take like 1 gb of my vram for the whole day. Upon that, I had a few tricks up my sleeve, check <a class="links2" href="section04">here</a></li>
+          <li>Every voice assistant has to talk back. I experimented with many <mark>TTS Engines</mark> and finally decided on using <a class="links2" href="https://github.com/rhasspy/piper">Piper TTS</a>, a lightweight TTS engine that sounds more natural than minimalistic ones like <a class="links2" href="https://github.com/espeak-ng/espeak-ng">espeak-ng</a>. In the future I thought of training a piper model with my own voice, but I need a good microphone for it. Or maybe I'll come up with an alternative method to do it. I was using the <mark>libritts_r</mark> voice model from the models released by rhasspy.</li>
+          <li>Now that the assistant can <mark>hear and speak</mark>, it was time to give it some logic/rules to work with. Here's a basic function for using piper and playing the audio. I use <a class="links2" href="https://github.com/dunst-project/dunst">dunst</a> as my notification manager to show notification on my desktop in case I'm not using headphones.</li>
+          <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="code snippet for speak() function">
         </ul>
       </section>
       <section id="section04">
-        <h3>Fine-Tuning on custom dataset</h3>
+        <h3>Voice Assistant</h3>
+         I then made a few rules like <code>"open browser": lambda: (speak("Opening browser"), send2vita("Opening browser"), notify("Opening Browser"), subprocess.Popen(["zen-browser"]))</code>
         <ul>
-          <li><a class="links2" href="">ok</a> → </li>
-          <li><a class="links2" href="">ok</a> → </li>
-          <li><a class="links2" href="">ok</a> → </li>
+          <li><code>"open firefox"</code> → If user says "open firefox" then: do something</li>
+          <li><code>speak("Opening browser")</code> → It says, "opening browser" in a human-like voice</li>
+          <li><code>send2vita("Opening browser")</code> → Currently a placeholder function for a future upgrade</li>
+          <li><code>notify("Opening Browser")</code> → Displays a notification on the desktop</li>
+          <li><code>subprocess.Popen(["zen-browser"])</code> → Runs the actual command using subprocess</li>
+        </ul>
+          <img class="doc" loading="lazy" decoding="async" src="./9.png" alt="command dictionary">
+        <p align="center">Here are some more example commands which demonstrate the assistant being able to do system level tasks like changing volume, brightness, keyboard backlight, taking a screenshot, opening youtube, etc.</p>
+          But the assistant was <mark>not perfect</mark> when I tried to use it. Since vosk converts human speech to english, a slight difference in accent could make it misunderstand the command and not do anything at all, as it's not defined in it's command dictionary. Therefore, I implemented a <mark>Fuzzy Logic selection method</mark> using <a class="links2" href="https://github.com/rapidfuzz/RapidFuzz">RapidFuzz</a> to make sure it can narrow down what the user has said to something in the command dictionary.<br>
+          <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="fuzzy matching code snippet">
+          <p align="center">Fuzzy Logic means checking how similar 2 strings are instead of a strict binary output like <code>both are same</code> or <code>both are not the same</code>. It gives a score on how similar the 2 strings are.</p>
+        <ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Simple, effective,<br>elegant<br>ヽ(´▽｀)/</p></div></div>
+    <div class="project-details">
+          <li>I can say something like "open browser please" and the fuzzy matcher will match it with every single command and realise that it is an 80% match to the "open browser" command.</li>
+          <li>It uses <a class="links2" href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance</a> → How many steps it takes to change from <mark>command</mark> to <mark>input text</mark>.</li>
+          <li><code>fuzz.partial_ratio(command, text)</code> → partial_ratio() means it checks partially. For example, I could say something like "open browser please" and it would still execute "open browser" command.</li>
+          <li><code>fuzz.token_sort_ratio(command, text)</code> → token_sort_ratio() means it checks for words without checking their order. For example, I could also say "browser open" and it would still execute "open browser" command.</li>
+          <li>I calculated the <mark>weighted average</mark> scores from both the fuzzy matching functions and gave a higher priority to <code>fuzz.partial_sort</code> as from my experiments, <mark>0.6:0.4</mark> was the sweet spot.</li>
+          <li><code>if score > 60: return best_match</code> → If matching score is above 60, accept it and run the command. 60 because PSV microphone is not very good and 60 was the sweet spot where it was working well.</li>
+        </ul>
+        <img class="doc" loading="lazy" decoding="async" src="./11.png" alt="wake word detection code">
+        <p align="center">A voice assistant needs to respond by sound, not by us pressing a button</p>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>This was done because once I was yelling at myself "shut up" and it fuzzy matched it to "shutdown" and shutdown my PC...</p></div></div>
+    <div class="project-details">
+        <ul>
+          <li>Vosk is set to transcribe everything everytime. If it ever hears the word <mark>hey</mark>, it will start listening for commands. Otherwise, it will not run any commands.</li>
+          <li>If it hears the <mark>Wake Word</mark>, it speaks back and I can tell it to do anything in the <mark>command dictionary</mark>.</li>
+          <li>There are a few special commands like <code>selection</code> where I can select some text and ask the assistant to explain about the selected text. For this, I used <a class="links2" href="https://ollama.com/">Ollama</a>. The specific model I used is <code>Qwen 2.5 0.5b</code>. It's a tiny and very capable model for this use case.</li>
+        </ul>
+        <img class="doc" loading="lazy" decoding="async" src="./12.png" alt="wake word responses">
+        <p align="center" width="200">A voice assistant needs a personality. These are the things it says when it detects a wake word.</p>
+        <img class="doc" loading="lazy" decoding="async" src="./13.png" alt="fuzzy score < 60 responses">
+        <p align="center">It says one of these if <mark>fuzzy match score</mark> is below 60.</p>
+        <ul>
+          <li>I also implemented a <mark>second socket</mark>: <mark>cmd_sock</mark> where instead of voice always, commands can be sent from the PSV using buttons as well. For this one, I used port 2013. It listens for commands from the PSV and carries out that instruction.</li>
+          <li>I didn't use the same socket because if I put two types of data in one stream, it would add unnecessary tasks like parsing and identifying which part of the data stream is the <mark>voice</mark> stream and which is the <mark>data</mark> stream.</li>
         </ul>
       </section>
       <section id="section05">
-        <h3>Fine-Tuning on custom dataset</h3>
+        <h3>Client App</h3>
         <ul>
           <li>PSV is home to many homebrew UI libraries. First I tried using the <a class="links2" href="https://www.opengl.org/">OpenGL (by Team Khronos)</a> implementation in PSV → <a class="links2" href="https://github.com/Rinnegatamante/vitaGL">VitaGL (Ported by Rinne)</a>.</li>
           </ul>
@@ -125,9 +163,16 @@
     <div class="project-details">
           <ul>
           <li>I was successfully able to port my <a class="links2" href="https://github.com/bhu1-103/swiss-army-katana/tree/main/opengl/synthwave">synthwave.h library</a> (written in C) to PSV as seen in the image below.</li>
-          <img class="doc" loading="lazy" decoding="async" src="./99.png">
-
-          <li><a class="links2" href="">ok</a> → </li>
+          <video class="doc" autoplay muted loop playsinline>
+            <source src="./14.mp4" type="video/mp4">
+          </video>
+          <li>I soon felt the limitations of <mark>vanilla OpenGL</mark> for designing an UI. Therefore I tried using <a class="links2" href="https://github.com/Rinnegatamante/imgui-vita">ImGui (Ported by Rinne, again)</a> to create a suitable UI.</li>
+          Here are the standout feattures of the client program.
+          <li>I added a few colors but I could not decide on a color scheme → I made a dynamic 2 color palette which can be set easily.</li>
+          <li>Designed a simple VU meter using RMS to display volume levels in a circle.</li>
+          <li>Senvitivity of Microphone is adjustable in 10 levels.</li>
+          <li>Command center where command can be selected instead of having to say a command verbally.</li>
+          <li>Used inbuilt <mark>gyroscope</mark> to identify tilt and add a parallax effect to match a <mark>sci-fi aesthetic</mark>.</li>
           <li><a class="links2" href="">ok</a> → </li>
         </ul>
       </section>
