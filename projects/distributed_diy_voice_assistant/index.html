@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Bhuvan's Project with - ">
+  <meta name="description" content="Bhuvan's Project with DIY Voice Assistant">
   <title>bhu1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -41,8 +41,9 @@
         <li><a class="links2" href="#section01">Setting up the Environment</a></li>
         <li><a class="links2" href="#section02">Sending Audio over WiFi</a></li>
         <li><a class="links2" href="#section03">Server Setup</a></li>
-        <li><a class="links2" href="#section04">Voice Assistant</a></li>
+        <li><a class="links2" href="#section04">Voice Assistant (alter-ego)</a></li>
         <li><a class="links2" href="#section05">Client App</a></li>
+        <li><a class="links2" href="#yt">Demo Video on YouTube</a></li>
       </ol>
     <br>
       <section id="section01">
@@ -109,7 +110,12 @@
         </ul>
       </section>
       <section id="section04">
-        <h3>Voice Assistant</h3>
+        <h3>Voice Assistant (alter-ego)</h3>
+        </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>It's called alter-ego because this project was heavily inspired by <a class="links2" href="https://danganronpa.fandom.com/wiki/Chihiro_Fujisaki">Chihiro</a> from Danganronpa.</p></div></div>
+    <div class="project-details">
+          <ul>
          I then made a few rules like <code>"open browser": lambda: (speak("Opening browser"), send2vita("Opening browser"), notify("Opening Browser"), subprocess.Popen(["zen-browser"]))</code>
         <ul>
           <li><code>"open firefox"</code> → If user says "open firefox" then: do something</li>
@@ -163,7 +169,7 @@
     <div class="project-details">
           <ul>
           <li>I was successfully able to port my <a class="links2" href="https://github.com/bhu1-103/swiss-army-katana/tree/main/opengl/synthwave">synthwave.h library</a> (written in C) to PSV as seen in the image below.</li>
-          <video class="doc" autoplay muted loop playsinline>
+          <video class="doc" controls preload="none" playsinline>
             <source src="./14.mp4" type="video/mp4">
           </video>
           <li>I soon felt the limitations of <mark>vanilla OpenGL</mark> for designing an UI. Therefore I tried using <a class="links2" href="https://github.com/Rinnegatamante/imgui-vita">ImGui (Ported by Rinne, again)</a> to create a suitable UI.</li>
@@ -173,9 +179,10 @@
           <li>Senvitivity of Microphone is adjustable in 10 levels.</li>
           <li>Command center where command can be selected instead of having to say a command verbally.</li>
           <li>Used inbuilt <mark>gyroscope</mark> to identify tilt and add a parallax effect to match a <mark>sci-fi aesthetic</mark>.</li>
-          <li><a class="links2" href="">ok</a> → </li>
         </ul>
+        <img class="doc" loading="lazy" decoding="async" src="./15.png" alt="Screenshot of the program">
       </section>
+      <section="yt"><iframe class="video-iframe" src="https://www.youtube.com/embed/bHdj35IZvg8?si=TI8YvQ3Ge5MpAaa7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
 
     </div>
     <br>
