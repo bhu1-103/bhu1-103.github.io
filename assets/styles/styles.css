@@ -548,10 +548,6 @@ h2:after {
   margin-left: 0;
 }
 
-.project-image {
-  width: 70%;
-}
-
 code {
   background-color: var(--bg-code);
   color: var(--counter);
@@ -631,6 +627,17 @@ ol li:hover::before {
 video.doc,
 img.doc {
   max-width: 90%;
+  height: auto;
+  max-height: 500px;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 0, 102, 0.5);
+  box-shadow: 0 0 25px rgba(255, 0, 102, 0.3);
+}
+
+.project-image {
+  max-width: 65%;
   height: auto;
   max-height: 500px;
   display: block;

@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -31,7 +31,7 @@
     <img src="./1.png" class="doc" loading="lazy" height="100" decoding="async" alt="Distributed DIY Voice Assistant" class="project-image">
     <br>
     <p class="quick-summary">I was unable to afford a microphone, so I made use of my PS Vita as a microphone and ended up using Dear ImGui to make a custom client app for my PS Vita to connect with my computer that is running my custom voice assistant using an Ollama model and lots of algorithms, rules and fuzzy logic.</p>
-    <p>Initially I made a single node version of this using my laptop and it's inbuilt mic. You can check the below video.</p>
+    <p>Initially I made a single node version of this using my laptop and its inbuilt mic. You can check the below video.</p>
     <iframe class="video-iframe-small" loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/K2AmdQhL7ic?si=wJUnaew_41XoIEKr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/alter-ego/tree/main/v2-vita-mic">View GitHub repo for server here</a></div></strong>
     <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/homebrew/tree/main/vita/alter-ego-v5.0">View GitHub repo for client here</a></div></strong>
@@ -50,7 +50,7 @@
         <h3>Setting up the Environment</h3>
         <ul>
           <li>My PS Vita was the only device I had which had a mic and could stay on my desk for a long time. Also, my PSV is <code>hacked/jailbroken</code> and can run custom code. Therefore, I decided to use it.</li>
-          <li>I first installed <a class="links2" href="https://vitasdk.org/">vitasdk</a>, which is the environment to make homebrew apps for PSV. I grabbed the code for <mark>sample apps</mark> from the <a class="links2" href="">Official Github</a> and compiled a hello world program to check if it would run. After compiling, it produced a <code>.vpk</code> file which works like an android <code>.apk</code> file in design. They both are fancy zip files with rules for where the files should be copied to, etc.<br>Once I moved the file to my PSV via FTP and installed it, I could see the hello world program working.</li>
+          <li>I first installed <a class="links2" href="https://vitasdk.org/">vitasdk</a>, which is the environment to make homebrew apps for PSV. I grabbed the code for <mark>sample apps</mark> from the <a class="links2" href="">Official GitHub</a> and compiled a hello world program to check if it would run. After compiling, it produced a <code>.vpk</code> file which works like an Android <code>.apk</code> file in design. They both are fancy zip files with rules for where the files should be copied to, etc.<br>Once I moved the file to my PSV via FTP and installed it, I could see the hello world program working.</li>
           <img class="doc" loading="lazy" decoding="async" src="./2.png" alt="Hello world program (using vitasdk) where "Pls Work" is printed 20 times">
         </ul>
     </div>
@@ -66,9 +66,9 @@
       <section id="section02">
         <h3>Sending audio via WiFi</h3>
         <ul>
-          <li>I copied the boilerplate code from the <mark>samples</mark> to setup a network. I used <code>SCE_NET_SOCK_DGRAM</code> to setup an UDP network. I chose UDP because I first wanted to check if PSV's <code>2.4 GHz 802.11n WiFi</code>(it does not match true 802.11n speeds though, I only get a max of around 2 megabytes/sec)is good enough for modern standards. Surprisingly, it worked very well → given my router is literally above my computer monitor.</li>
+          <li>I copied the boilerplate code from the <mark>samples</mark> to setup a network. I used <code>SCE_NET_SOCK_DGRAM</code> to setup a UDP network. I chose UDP because I first wanted to check if PSV's <code>2.4 GHz 802.11n WiFi</code> (it does not match true 802.11n speeds though, I only get a max of around 2 megabytes/sec)is good enough for modern standards. Surprisingly, it worked very well → given my router is literally above my computer monitor.</li>
           <li>Connecting something via wifi requires an <code>IP Address</code>. Initially I had <mark>hardcoded</mark> the IP Address of my computer, but since I also use my laptop sometimes, it was not ideal to hardcode. So I used <mark>file operations</mark> to read the IP Address from a file instead: <br>→ <code>sceNetInetPton(SCE_NET_AF_INET, SERVER_IP, &server_audio.sin_addr)</code><br>→ <code>server_audio.sin_port = sceNetHtons(SERVER_PORT)</code><br></li>
-          <li><code>#define NET_PARAM_MEM_SIZE (1*1024*1024)</code> → This is how much space is alotted for the networking stack of the entire program. <code>1*1024*1024</code> here means <mark>1 mb → networking stack ram</mark>.</li> 
+          <li><code>#define NET_PARAM_MEM_SIZE (1*1024*1024)</code> → This is how much space is allotted for the networking stack of the entire program. <code>1*1024*1024</code> here means <mark>1 mb → networking stack ram</mark>.</li> 
           <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="Code for the network stack">
           </ul>
     </div>
@@ -93,7 +93,7 @@
       <section id="section03">
         <h3>Server Setup (The Receiver End)</h3>
         <ul>
-          <li>Since I use <a class="links2" href="https://archlinux.org/">Linux</a> and <a class="links2" href="https://wiki.archlinux.org/title/PipeWire">PipeWire</a> I can use the <code>pacat</code> command line utility like so to create a fake audio device<br>.</li>
+          <li>Since I use <a class="links2" href="https://archlinux.org/">Linux</a> and <a class="links2" href="https://wiki.archlinux.org/title/PipeWire">PipeWire</a> I can use the <code>pacat</code> command line utility like so to create a fake audio device.</li>
         </ul>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Only Walkie.<br>No Walkie-Talkie yet.<br>Until I implement 2 way communication.<br>(｡╯︵╰｡)</p></div></div>
@@ -101,9 +101,9 @@
         <ul>
           <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="pacat code to create an audio sink">
           <li>The <mark>microphone audio</mark> of my PSV was now audible on my headphones. To use this as a normal microphone, I could simply open <mark>PAVU (PulseAudio Volume Utility)</mark> and set input device to a software sink, named <mark>Walkie</mark>.</li>
-          <li>In pacat, I used <code>AUDIO_FORMAT = 's16le'</code> (signed 16-bit little Endian) and other values from <a class="links2" href="#section02">earier</a> along with other values like IP Address, Socket port number, number of channels, etc.</li>
+          <li>In pacat, I used <code>AUDIO_FORMAT = 's16le'</code> (signed 16-bit little Endian) and other values from <a class="links2" href="#section02">earlier</a> along with other values like IP Address, Socket port number, number of channels, etc.</li>
           <li>Now that the basics were working, I thought of using <a class="links2" href="https://alphacephei.com/vosk/">vosk</a>, a <mark>lightweight speech recognition library</mark> in python I had first seen in <a class="links2" href="https://www.youtube.com/watch?v=hXKF47jzq7A">BugsWriter</a>'s youtube channel.</li>
-          <li>Vosk is an <mark>ASR</mark> program that can convert speech to text. The model size for english is around 40 mb, which is really tiny. I used it and it worked really well, despite being a very low end lightweight model. I went with vosk and not whisper because this is a voice assistant that runs at all the time, using whisper would take like 1 gb of my vram for the whole day. Upon that, I had a few tricks up my sleeve, check <a class="links2" href="section04">here</a></li>
+          <li>Vosk is an <mark>ASR</mark> program that can convert speech to text. The model size for English is around 40 mb, which is really tiny. I used it and it worked really well, despite being a very low end lightweight model. I went with vosk and not whisper because this is a voice assistant that runs at all the time, using whisper would take like 1 gb of my VRAM for the whole day. Upon that, I had a few tricks up my sleeve, check <a class="links2" href="section04">here</a></li>
           <li>Every voice assistant has to talk back. I experimented with many <mark>TTS Engines</mark> and finally decided on using <a class="links2" href="https://github.com/rhasspy/piper">Piper TTS</a>, a lightweight TTS engine that sounds more natural than minimalistic ones like <a class="links2" href="https://github.com/espeak-ng/espeak-ng">espeak-ng</a>. In the future I thought of training a piper model with my own voice, but I need a good microphone for it. Or maybe I'll come up with an alternative method to do it. I was using the <mark>libritts_r</mark> voice model from the models released by rhasspy.</li>
           <li>Now that the assistant can <mark>hear and speak</mark>, it was time to give it some logic/rules to work with. Here's a basic function for using piper and playing the audio. I use <a class="links2" href="https://github.com/dunst-project/dunst">dunst</a> as my notification manager to show notification on my desktop in case I'm not using headphones.</li>
           <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="code snippet for speak() function">
@@ -176,8 +176,8 @@
           Here are the standout features of the client program.
           <li>I added a few colors but I could not decide on a color scheme → I made a dynamic 2 color palette which can be set easily.</li>
           <li>Designed a simple VU meter using RMS to display volume levels in a circle.</li>
-          <li>Senvitivity of Microphone is adjustable in 10 levels.</li>
-          <li>Command center where command can be selected instead of having to say a command verbally.</li>
+          <li>Sensitivity of Microphone is adjustable in 10 levels.</li>
+          <li>Command center where command can be selected instead of having to say commands verbally.</li>
           <li>Used inbuilt <mark>gyroscope</mark> to identify tilt and add a parallax effect to match a <mark>sci-fi aesthetic</mark>.</li>
         </ul>
         <img class="doc" loading="lazy" decoding="async" src="./15.png" alt="Screenshot of the program">
@@ -187,7 +187,7 @@
     </div>
     <br>
     <div class="links">
-      <a href="https://github.com/bhu1-103">Github</a>
+      <a href="https://github.com/bhu1-103">GitHub</a>
       <a href="mailto:103.bhuvan@gmail.com">Email</a>
       <a href="https://orcid.org/0009-0005-8233-1317">ORCiD</a>
     </div>
