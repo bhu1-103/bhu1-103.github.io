@@ -50,7 +50,7 @@
           <li>I used <a class="links2" href="https://github.com/ranger/ranger">ranger</a>, a terminal-based file manager as the UI to choose the song.</li>
           <li>Since <mark>demucs</mark> uses ffmpeg in the background and converts any file to <mark>.wav</mark>, I did no conversion after selecting the file.</li>
           <li>Initialised the necessary variables and directories.
-            <img class="doc" loading="lazy" decoding="async" src="./8.png"><br></li>
+            <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="variables declaration and directory structure"><br></li>
         </ul>
       </section>
       <section id="section02">
@@ -60,9 +60,9 @@
             <ul>
               <li>
                 <code>htdemucs_6s</code> → [6s - 6 stems] This is the most versatile demucs model. It can split up a song into these stems.
-                <img class="doc" loading="lazy" decoding="async" src="./2.png"><br></li>
-              <li><code>htdemucs_ft</code> → [ft - Fine Tuned] This one is arguably the better model in terms of raw accuracy as it is a bag of 4 models, but it misses one crucial thing I am interested in. The guitar stem...
-                <img class="doc" loading="lazy" decoding="async" src="./3.png"><br></li>
+                <img class="doc" loading="lazy" decoding="async" src="./2.png" alt="demucs-6s splitting into 6 tracks"><br></li>
+              <li><code>htdemucs_ft</code> → [ft - Fine Tuned] This one is arguably the better model in terms of raw accuracy as it is a bag of 4 models, but it misses one crucial thing I am interested in → the guitar stem...
+                <img class="doc" loading="lazy" decoding="async" src="./3.png" alt="demucs-ft 4 track split"><br></li>
             </ul>
 
           <li>I was in a fix what model to use. That's when I got an idea. I tested it out with multiple songs and came up with these equations. As seen in the image below, I used <code>bass.wav</code>, <code>drums.wav</code> and <code>vocals.wav</code> from <mark>demucs_ft</mark> and <code>other.wav</code>, <code>piano.wav</code> from <mark>demucs_6s</mark>.</li>
@@ -73,7 +73,7 @@
           <ul>
             <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="ffmpeg mixing code with a clever mix of demucs-ft and demucs-6s stems">
           <li>I followed the same stem selection process for <mark>Vocals Karaoke</mark> and <mark>Backing Track</mark>.</li>
-          <img class="doc" loading="lazy" decoding="async" src="./6.png"><br></li>
+          <img class="doc" loading="lazy" decoding="async" src="./6.png" alt="ffmpex mixing code for karaoke and backing track as well, using the same strategy as above"><br></li>
           </ul>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>AAC (.m4a) is the only thing popularized by Apple I can accept<br>Oh, and maybe ipods</p></div></div>
@@ -89,7 +89,7 @@
         <ul>
           <li>Since we now had <mark>vocals.wav</mark>, we can directly use <a class="links2" href="https://github.com/openai/whisper">whisper</a>, by OpenAI to auto-generate the lyrics. This is not very promising, but is okay for now.</li>
           <li>Once the venv setup was done, I used the cli to get the lyrics for a song using the following code snippet.
-          <img class="doc" loading="lazy" decoding="async" src="./5.png"><br></li>
+          <img class="doc" loading="lazy" decoding="async" src="./5.png" alt="code for running whisper to generate the lyrics and saving into a .srt file"><br></li>
           <li>It produced a <mark>.srt</mark> file. It's just like a simple text file with timestamps of the subtitles, in our case, lyrics.</li>
           </ul>
     </div>
@@ -100,15 +100,15 @@
           <li>Now that the audio files and the auto-generated lyrics are ready, we can add all of the produced files into a single <mark>.mkv</mark> container.</li>
           <li><mark>Trivia:</mark> A .mkv container, also called <mark>Matroska Video</mark> is one of the most versatile video formats, it can contain multiple video streams, subtitles and also audio tracks. This is the format used when we used to watch Hollywood movies 15+ years ago which had subtitles of almost every single language.</li>
           <li>I used <code>ffmpeg</code>, once again, to combine all of the <mark>.m4a</mark> audio tracks and lyrics <mark>.srt</mark> file.
-          <img class="doc" loading="lazy" decoding="async" src="./7.png"><br></li>
+          <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="mixing all the files into one master .mkv file"><br></li>
           </ul>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>I should load these to my ipod touch once it finishes charging...<br>It's been charging for a month now (⋟﹏⋞)</p></div></div>
     <div class="project-details">
           <ul>
           <li>Once this is finished, there is some cleanup to do. And then, we can play the video on any media player.<br>For example, I use <mark>VLC Media Player</mark> here.
-          <img class="doc" loading="lazy" decoding="async" src="./9.png">
-          <img class="doc" loading="lazy" decoding="async" src="./10.png"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./9.png" alt="screenshot of VLC where 4 audio tracks and one subtitle track is visible">
+          <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="screenshot of ffmpeg showing metadata of the .mkv file, it shows the audio tracks and subtitles in one file"></li>
           <li>We can see the metadata of the file above. This file can be played on phone, laptop, etc. Any device supporting VLC Media Player or a similar app will be able to have the <mark>Karaoke experience</mark>.</li>
         </ul>
       <section id="section04">
