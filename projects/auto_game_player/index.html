@@ -31,12 +31,12 @@
     <br>
     <p class="quick-summary">I’ve revisited this idea multiple times (ずっとずっと) since my university hackathons, where I initially relied on basic OpenCV techniques like color masking. Those approaches felt limited, so I rebuilt the system using the Sony IMX500, running a custom fine-tuned YOLO11 model directly on the sensor. The system operates on metadata only, sending results to a Raspberry Pi (I'll refer to it as RPi from now on) Zero 2 W to drive real-time control via USB HID, forming a low-latency vision → action loop without transferring image data.</p>
     <div class="project-details">
-      <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have lower accuracy scores when compared to yolo11.<br>
+      <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a target="_blank" rel="noopener noreferrer"class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have lower accuracy scores when compared to yolo11.<br>
       The main outcome of this project is to use a <mark>Raspberry Pi</mark> and a <mark>NPU enabled Camera</mark> to play the video game → <mark>Road Fighter</mark>.
       </p>
-      <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/imx-500">View GitHub repo here</a></div></strong>
-      <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/imx-500/blob/main/timeline.md">View project timeline and logs here</a></div></strong>
-      <strong><div class="links" align="center"><a href="https://github.com/bhu1-103/imx-500/blob/main/hacks.md">View uncodumented behaviour and workarounds here</a></div></strong>
+      <strong><div class="links" align="center"><a target="_blank" rel="noopener noreferrer"href="https://github.com/bhu1-103/imx-500">View GitHub repo here</a></div></strong>
+      <strong><div class="links" align="center"><a target="_blank" rel="noopener noreferrer"href="https://github.com/bhu1-103/imx-500/blob/main/timeline.md">View project timeline and logs here</a></div></strong>
+      <strong><div class="links" align="center"><a target="_blank" rel="noopener noreferrer"href="https://github.com/bhu1-103/imx-500/blob/main/hacks.md">View uncodumented behaviour and workarounds here</a></div></strong>
       <p><strong>Table of contents →</strong></p>
       <ol>
         <li><a class="links2" href="#section01">Custom Dataset and Labeling</a></li>
@@ -53,10 +53,10 @@
       <h3>Custom Dataset and Labeling</h3>
       <p>The following tools were used to generate and label the dataset.</p>
       <ul>
-        <li><a class="links2" href="https://fceux.com/web/home.html">FCEUX</a> → running the game on PC</li>
-        <li><a class="links2" href="https://github.com/obsproject/obs-studio">OBS Studio</a> → recording the game video</li>
-        <li><a class="links2" href="https://ffmpeg.org">ffmpeg</a> → splitting the video into individual image samples</li>
-        <li><a class="links2" href="https://app.roboflow.com/">roboflow</a> → labeling the images</li>
+        <li><a target="_blank" rel="noopener noreferrer"class="links2" href="https://fceux.com/web/home.html">FCEUX</a> → running the game on PC</li>
+        <li><a target="_blank" rel="noopener noreferrer"class="links2" href="https://github.com/obsproject/obs-studio">OBS Studio</a> → recording the game video</li>
+        <li><a target="_blank" rel="noopener noreferrer"class="links2" href="https://ffmpeg.org">ffmpeg</a> → splitting the video into individual image samples</li>
+        <li><a target="_blank" rel="noopener noreferrer"class="links2" href="https://app.roboflow.com/">roboflow</a> → labeling the images</li>
       </ul>
       This is how a labeled image in <mark>roboflow</mark> looks like. On the left, there are the classes and on the right are the bounding boxes I put on all the images. In total, I <mark>labelled 170 images</mark>, which is very few, but I wanted to experiment whether such a small number would be enough given the game's sprites are exactly the same throughout the whole game and there is zero post-processing.
       <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="roboflow screenshot showing yolo classes and bounding boxes">
@@ -93,7 +93,7 @@
     <section id="section03">
       <h3>Exporting model to IMX500</h3>
       <ul>
-        <li>I have trained the model on my custom dataset. Now, all that remains is to make it usable in the IMX500 camera. The official <a class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#usage-examples">ultralytics documentation</a> shows us how to convert the now fine-tuned model to the IMX500 format.</li>
+        <li>I have trained the model on my custom dataset. Now, all that remains is to make it usable in the IMX500 camera. The official <a target="_blank" rel="noopener noreferrer"class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#usage-examples">ultralytics documentation</a> shows us how to convert the now fine-tuned model to the IMX500 format.</li>
         <li><code>yolo export model=/home/bhu1/dev/git/RasPi_YOLO/runs/detect/train2/weights/best.pt format=imx data=data.yaml</code><br>
           As seen in the code, the <code>best.pt</code> weights are used again. But, this time, they are used to <mark>export</mark> the model and the format used is <code>format=imx</code>.
           <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="exporting model to imx500 format">
@@ -114,12 +114,12 @@
         <li>Folder structure on RPi<br>
           <code>yolo11n_imx_model</code><br>
           ├── <code>dnnParams.xml</code><br>
-          ├── <code>labels.txt</code> → Has to be manually created (<a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/yolo11n_imx_model/labels.txt">example</a>)<br>
+          ├── <code>labels.txt</code> → Has to be manually created (<a target="_blank" rel="noopener noreferrer"class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/yolo11n_imx_model/labels.txt">example</a>)<br>
           ├── <code>packerOut.zip</code> → Has to be placed in the right directory<br>
           ├── <code>model_imx.on</code><br>
           ├── <code>model_imx_MemoryReport.json</code><br>
           └── <code>model_imx.pbtxt</code><br></li>
-        <li>After the basic setup was done, I headed back to the official <a class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#object-detection_1">ultralytics documentation</a> to get the code to run the model on the RPi and ran it on my RPi immediately. That's when I noticed this...
+        <li>After the basic setup was done, I headed back to the official <a target="_blank" rel="noopener noreferrer"class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#object-detection_1">ultralytics documentation</a> to get the code to run the model on the RPi and ran it on my RPi immediately. That's when I noticed this...
           <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="running custom model for the first time, but it shows a warning"></li>
         
         <li><code>Large difference between libcamera request rate (33.4 RPS) and detection rate (5.3 DPS).</code><br>
@@ -139,7 +139,7 @@
         <li>Therefore, I kept running it at <code>1 FPS target</code> knowing I could use a more powerful RPi later when I buy one and since 1 FPS performs well without crashing the RPi.
           <img class="doc" loading="lazy" decoding="async" src="./11.png" alt="picture of YOLO model drawing bounding boxes even with such a small dataset"></li>
         <li>It wasn't perfect. Honestly, it was bad... But it worked... The model was able to identify something at the very least</li>
-        <li>But across the whole internet I was not able to find any information on how to <mark>stream metadata-only</mark>. That's when I thought of checking the <a class="links2" href="https://github.com/raspberrypi/picamera2/tree/main/examples/imx500">picamera2 github repository</a> but I couldn't find anything there.</li>
+        <li>But across the whole internet I was not able to find any information on how to <mark>stream metadata-only</mark>. That's when I thought of checking the <a target="_blank" rel="noopener noreferrer"class="links2" href="https://github.com/raspberrypi/picamera2/tree/main/examples/imx500">picamera2 github repository</a> but I couldn't find anything there.</li>
         </ul>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Oh?<br>"headless"?<br>FOUND IT!!</p></div></div>
@@ -147,9 +147,9 @@
       <ul>
         <li>I then ran the help command for <code>AiCamera</code> from the <code>modlib</code> module: <code>python -c "from modlib.devices import AiCamera; help(AiCamera)".</code>
           <img class="doc" loading="lazy" decoding="async" src="./12.png" alt="modlib documentation check, found 'headless'"></li>
-        <li><mark>headless</mark> is the component I was finding all this time. After adding the <code>headless=True</code> and modifying the code a little, I was able to see the detections in the terminal. The official <a class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#usage-examples">ultralytics documentation</a> shows that the max achievable framerate is <code>16</code>, so I hardcoded 16 and modified the code to measure latency and found this.
+        <li><mark>headless</mark> is the component I was finding all this time. After adding the <code>headless=True</code> and modifying the code a little, I was able to see the detections in the terminal. The official <a target="_blank" rel="noopener noreferrer"class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#usage-examples">ultralytics documentation</a> shows that the max achievable framerate is <code>16</code>, so I hardcoded 16 and modified the code to measure latency and found this.
           <img class="doc" loading="lazy" decoding="async" src="./13.png" alt="metadata only streaming working perfectly"></li>
-        <li><mark>Latency: 62ms</mark>. But in the official <a class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#benchmarks">ultralytics documentation</a> showed that the optimal <mark>inference time = 58.85 ms</mark>. Therefore I removed the hardcoded 16 fps limit and these were my findings.
+        <li><mark>Latency: 62ms</mark>. But in the official <a target="_blank" rel="noopener noreferrer"class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#benchmarks">ultralytics documentation</a> showed that the optimal <mark>inference time = 58.85 ms</mark>. Therefore I removed the hardcoded 16 fps limit and these were my findings.
           <img class="doc" loading="lazy" decoding="async" src="./14.png" alt="set fps to 30 and achieved an even better latency"></li>
         <li>To my surprise, the <mark>end-to-end latency = 35ms</mark> on average. Yes, this is the round trip latency.<br>
           It includes ⇣
@@ -163,7 +163,7 @@
         <li>I was able to achieve such a good <mark>end-to-end latency: 35ms</mark> thanks to <br>
           the sacrifice made earlier → <mark>416x416 tensor size.</mark></li>
         <li>Update on 5 May, model is not able to keep up with 30 fps. After some trial error, I found 24 fps to be the sweet spot, the total latency now was 43 ms. It's such a huge difference but I will figure it out.</li>
-        <li>Code can be checked <a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/README.md">here.</a></li>
+        <li>Code can be checked <a target="_blank" rel="noopener noreferrer"class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/README.md">here.</a></li>
       </ul>
     </section>
     <section id="section05">
@@ -206,10 +206,10 @@
       </div>
       <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Is it over?<br>No more<br>"TO BE CONTINUED..."?</p></div></div>
       <div class="project-details">
-      Here, the RPi (left side window) is pretending to be a keyboard and typing things on my computer (right side small window). I ran the <a class="links2" href="https://github.com/bhu1-103/swiss-army-katana/blob/main/fun/dedsec-hack.py">hack.py</a> script on my RPi via <mark>SSH</mark>.<br>
+      Here, the RPi (left side window) is pretending to be a keyboard and typing things on my computer (right side small window). I ran the <a target="_blank" rel="noopener noreferrer"class="links2" href="https://github.com/bhu1-103/swiss-army-katana/blob/main/fun/dedsec-hack.py">hack.py</a> script on my RPi via <mark>SSH</mark>.<br>
       Then, I wrote some logic for the program to make the RPi use the YOLO bounding boxes to move the player.<br>
 
-      As previously mentioned, I set a few rules in <a class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/logic_old.py">logic.py</a>⇣ (in no particular order)<br>
+      As previously mentioned, I set a few rules in <a target="_blank" rel="noopener noreferrer"class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/logic_old.py">logic.py</a>⇣ (in no particular order)<br>
       <ul>
         <li><mark>Always hit the Gas</mark></li>
         <li><mark>Release the Gas Pedal</mark> when <code>player[width] > player[height]</code> - meaning, player has hit an enemy or obstacle and is spinning out.</li>
@@ -235,9 +235,9 @@
     </div>
     <br>
     <div class="links">
-      <a href="https://github.com/bhu1-103">GitHub</a>
-      <a href="mailto:103.bhuvan@gmail.com">Email</a>
-      <a href="https://orcid.org/0009-0005-8233-1317">ORCiD</a>
+      <a target="_blank" rel="noopener noreferrer"href="https://github.com/bhu1-103">GitHub</a>
+      <a target="_blank" rel="noopener noreferrer"href="mailto:103.bhuvan@gmail.com">Email</a>
+      <a target="_blank" rel="noopener noreferrer"href="https://orcid.org/0009-0005-8233-1317">ORCiD</a>
     </div>
 
   </div>
