@@ -19,6 +19,12 @@ html {
   height: 100%;
 }
 
+p,
+ul,
+ol {
+  margin-bottom: 1.2rem;
+}
+
 @font-face {
   font-family: 'Bricolage';
   src: url('../fonts/Bricolage_Grotesque/BricolageGrotesque-Regular.ttf');
@@ -782,6 +788,11 @@ h3 {
 
 
 @media (max-width: 600px) {
+  p,
+  ul,
+  ol {
+    margin-bottom: 1.4rem;
+  }
   .container {
     padding: 15px;
   }
