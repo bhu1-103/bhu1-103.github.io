@@ -12,6 +12,7 @@
 
 <body>
 
+  <section class="part" id="section00"></section>
   <div class="container">
     <div class="liquid-overlay"></div>
     <div class="top-bar">
@@ -49,7 +50,7 @@
       </ol>
     <br>
 
-    <section id="section01">
+    <section class="part" id="section01">
       <h3>Custom Dataset and Labeling</h3>
       <p>The following tools were used to generate and label the dataset.</p>
       <ul>
@@ -66,7 +67,7 @@
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>I knew the "170" was a bad idea...<br>but I didn't feel like labeling anymore</p></div></div>
     <div class="project-details">
 
-    <section id="section02">
+    <section class="part" id="section02">
       <h3>Fine-Tuning on custom dataset</h3>
       <ul>
         <li>I selected a 70:20:10 split as shown in the image below ⇣<br>
@@ -90,7 +91,7 @@
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>I do not trust the results yet.<br>Oh wait, we still need to export the model?<br>(¬_¬") How boring...</p></div></div>
     <div class="project-details">
 
-    <section id="section03">
+    <section class="part" id="section03">
       <h3>Exporting model to IMX500</h3>
       <ul>
         <li>I have trained the model on my custom dataset. Now, all that remains is to make it usable in the IMX500 camera. The official <a target="_blank" rel="noopener noreferrer" class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#usage-examples">ultralytics documentation</a> shows us how to convert the now fine-tuned model to the IMX500 format.</li>
@@ -107,7 +108,7 @@
       </ul>
     </section>
 
-    <section id="section04">
+    <section class="part" id="section04">
       <h3>Testing model on RPi Zero 2 W</h3>
       <ul>
         <li>I moved the packer.out file the RPi. In my case, I hosted a quick web server using <code>python -m http.server</code> and downloaded it on my raspberry pi.</li>
@@ -166,7 +167,7 @@
         <li>Code can be checked <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/README.md">here.</a></li>
       </ul>
     </section>
-    <section id="section05">
+    <section class="part" id="section05">
       <h3>Applying Logic to make the agent smart</h3>
       <ul>
         <li>From the metadata, I found out the positions of the player, enemies, obstacles, lane markings, etc and designed a basic algorithm where the model suggests directions to move as depicted in the image below. It may not be the most advanced system but it is pretty good for a use case like this.
@@ -181,7 +182,7 @@
       </ul>
     </section>
 
-    <section id="section06">
+    <section class="part" id="section06">
       <h3>Finishing the loop: Button Input</h3>
       There are 2 methods to do this. But I will only be following one of the methods:
       <ul>
@@ -229,7 +230,7 @@
   Since we have come so far....<br>
   here is a demo of the <code>Autonomous Game Player</code>
   <div class="video-wrapper">
-    <section id="yt"><iframe class="video-iframe" loading="lazy" src="https://www.youtube.com/embed/RxO37FOcdfs?si=5uoeg1fSh8ePkpSf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
+    <section class="part" id="yt"><iframe class="video-iframe" loading="lazy" src="https://www.youtube.com/embed/RxO37FOcdfs?si=5uoeg1fSh8ePkpSf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
   </div>
 
     </div>

@@ -12,6 +12,7 @@
 
 <body>
 
+  <section class="part" id="section00"></section>
   <div class="container">
     <div class="liquid-overlay"></div>
     <div class="top-bar">
@@ -46,7 +47,7 @@
         <li><a class="links2" href="#yt">Demo Video on YouTube</a></li>
       </ol>
     <br>
-      <section id="section01">
+      <section class="part" id="section01">
         <h3>Setting up the Environment</h3>
         <ul>
           <li>My PS Vita was the only device I had which had a mic and could stay on my desk for a long time. Also, my PSV is <code>hacked/jailbroken</code> and can run custom code. Therefore, I decided to use it.</li>
@@ -63,7 +64,7 @@
           <li>And that's how this epic journey began.</li>
         </ul>
       </section>
-      <section id="section02">
+      <section class="part" id="section02">
         <h3>Sending audio via WiFi</h3>
         <ul>
           <li>I copied the boilerplate code from the <mark>samples</mark> to setup a network. I used <code>SCE_NET_SOCK_DGRAM</code> to setup a UDP network. I chose UDP because I first wanted to check if PSV's <code>2.4 GHz 802.11n WiFi</code> (it does not match true 802.11n speeds though, I only get a max of around 2 megabytes/sec)is good enough for modern standards. Surprisingly, it worked very well → given my router is literally above my computer monitor.</li>
@@ -90,7 +91,7 @@
           <li>This system so far behaves like a raw <mark>Walkie-Talkie</mark>. A future improvement I would like to add is usage of <code>libopus</code> as that would make the required speed of <mark>256 kbps</mark> go down to <mark>32 kbps</mark>, 8x smaller size.</li>
         </ul>
       </section>
-      <section id="section03">
+      <section class="part" id="section03">
         <h3>Server Setup (The Receiver End)</h3>
         <ul>
           <li>Since I use <a target="_blank" rel="noopener noreferrer" class="links2" href="https://archlinux.org/">Linux</a> and <a class="links2" href="https://wiki.archlinux.org/title/PipeWire">PipeWire</a> I can use the <code>pacat</code> command line utility like so to create a fake audio device.</li>
@@ -109,7 +110,7 @@
           <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="code snippet for speak() function">
         </ul>
       </section>
-      <section id="section04">
+      <section class="part" id="section04">
         <h3>Voice Assistant (alter-ego)</h3>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>It's called alter-ego because this project was heavily inspired by <a class="links2" href="https://danganronpa.fandom.com/wiki/Chihiro_Fujisaki">Chihiro</a> from Danganronpa.</p></div></div>
@@ -157,7 +158,7 @@
           <li>I didn't use the same socket because if I put two types of data in one stream, it would add unnecessary tasks like parsing and identifying which part of the data stream is the <mark>voice</mark> stream and which is the <mark>data</mark> stream.</li>
         </ul>
       </section>
-      <section id="section05">
+      <section class="part" id="section05">
         <h3>Client App</h3>
         <ul>
           <li>PSV is home to many homebrew UI libraries. First I tried using the <a class="links2" href="https://www.opengl.org/">OpenGL (by Team Khronos)</a> implementation in PSV → <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/Rinnegatamante/vitaGL">VitaGL (Ported by Rinne)</a>.</li>
@@ -180,7 +181,7 @@
         </ul>
         <img class="doc" loading="lazy" decoding="async" src="./15.png" alt="Screenshot of the program">
       </section>
-      <section id="yt"><iframe class="video-iframe" src="https://www.youtube.com/embed/bHdj35IZvg8?si=TI8YvQ3Ge5MpAaa7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
+      <section class="part" id="yt"><iframe class="video-iframe" src="https://www.youtube.com/embed/bHdj35IZvg8?si=TI8YvQ3Ge5MpAaa7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
 
     </div>
     <br>
