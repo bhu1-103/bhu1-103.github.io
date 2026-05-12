@@ -679,6 +679,105 @@ h3 {
     -2px -2px 6px var(--balance);
 }
 
+.section-nav {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  z-index: 1000;
+}
+
+.section-btn {
+  position: relative;
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+
+  background: rgba(10, 10, 10, 0.85);
+  color: var(--text);
+
+  text-decoration: none;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  backdrop-filter: blur(4px);
+}
+
+.section-btn::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 200%;
+  height: 0%;
+
+  background: var(--accent);
+
+  transition: height 0.4s ease;
+
+  z-index: -1;
+
+  border-top-left-radius: 40% 20%;
+  border-top-right-radius: 40% 20%;
+}
+
+.section-btn:hover::before {
+  height: 100%;
+  animation: wave 1s linear infinite;
+}
+
+.section-btn:hover {
+  color: #000;
+
+  transform: translateY(2px);
+
+  box-shadow:
+    0 0 12px rgba(255, 0, 102, 0.35),
+    0 0 24px rgba(153, 204, 255, 0.15);
+
+  cursor: var(--cursor-click);
+}
+
+.section-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 600px) {
+  .section-nav {
+    bottom: 18px;
+    right: 18px;
+    gap: 10px;
+  }
+
+  .section-btn {
+    width: 48px;
+    height: 48px;
+
+    font-size: 1.2rem;
+  }
+}
 
 
 @media (max-width: 600px) {

@@ -12,6 +12,7 @@
 
 <body>
 
+  <section class="part" id="section00"></section>
   <div class="container">
     <div class="liquid-overlay"></div>
     <div class="top-bar">
@@ -43,7 +44,7 @@
         <li><a class="links2" href="#yt">Demo video on YouTube</a></li>
       </ol>
     <br>
-      <section id="section01">
+      <section class="part" id="section01">
         <h3>Files</h3>
         <ul>
           <li><a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> is the tool I used to download the song from youtube. Youtube's best audio format is in <mark>.webm</mark>, so I downloaded the song in that format.</li>
@@ -53,7 +54,7 @@
             <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="variables declaration and directory structure"><br></li>
         </ul>
       </section>
-      <section id="section02">
+      <section class="part" id="section02">
         <h3>Splitting the song into individual instruments</h3>
         <ul>
           <li>I used <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/adefossez/demucs">demucs</a> by Meta, to split the song into various stems as seen <a class="links2" href="https://github.com/adefossez/demucs#separating-tracks">here</a>. I was mainly interested in two of them -
@@ -84,7 +85,7 @@
           <li>Both the models take a little over a minute for a standard 4 minute song combined.</li>
         </ul>
       </section>
-      <section id="section03">
+      <section class="part" id="section03">
         <h3>Auto-Generate Lyrics</h3>
         <ul>
           <li>Since we now had <mark>vocals.wav</mark>, we can directly use <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/openai/whisper">whisper</a>, by OpenAI to auto-generate the lyrics. This is not very promising, but is okay for now.</li>
@@ -111,7 +112,7 @@
           <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="screenshot of ffmpeg showing metadata of the .mkv file, it shows the audio tracks and subtitles in one file"></li>
           <li>We can see the metadata of the file above. This file can be played on phone, laptop, etc. Any device supporting VLC Media Player or a similar app will be able to have the <mark>Karaoke experience</mark>.</li>
         </ul>
-      <section id="section04">
+      <section class="part" id="section04">
         <h3>Custom Player</h3>
         <ul>
           <li>Now that the file can be played anywhere, I thought of making a custom <mark>Karaoke Player</mark> using <a class="links2" href="https://www.pygame.org/docs/">PyGame</a>.</li>
@@ -120,7 +121,7 @@
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>Damn, time to play that one song by<br>Mazzy Star</p></div></div>
     <div class="project-details">
-      <section id="yt"><iframe class="video-iframe" loading="lazy" src="https://www.youtube.com/embed/Khyecia-kVg?si=NYMvcqkfzhtN22Zw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
+      <section class="part" id="yt"><iframe class="video-iframe" loading="lazy" src="https://www.youtube.com/embed/Khyecia-kVg?si=NYMvcqkfzhtN22Zw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
       </section>
 
     </div>
@@ -133,7 +134,12 @@
 
   </div>
 
+  <div class="section-nav">
+    <a id="prevSectionBtn" class="section-btn">↑</a>
+    <a id="nextSectionBtn" class="section-btn">↓</a>
+  </div>
   <script src="../../assets/scripts/liquid-overlay.js"></script>
+  <script src="../../assets/scripts/next-section.js"></script>
 
 </body>
 </html>
