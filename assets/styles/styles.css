@@ -684,62 +684,51 @@ h3 {
   position: fixed;
   bottom: 24px;
   right: 24px;
-
   display: flex;
   flex-direction: column;
   gap: 12px;
-
   z-index: 1000;
 }
 
 .section-btn {
   position: relative;
-
   width: 42px;
   height: 42px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border: 1px solid var(--accent);
-  border-radius: 8px;
+  clip-path: polygon(
+    12% 0%,
+    100% 8%,
+    80% 100%,
+    0% 92%
+  );
 
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
   color: var(--text);
-
   text-decoration: none;
-
   font-size: 1.0rem;
   font-weight: 700;
-
   overflow: hidden;
-
   transition:
     transform 0.2s ease,
     color 0.3s ease,
-    border-color 0.3s ease,
     box-shadow 0.3s ease;
-
   backdrop-filter: blur(1.5px);
 }
 
 .section-btn::before {
   content: "";
-
   position: absolute;
   left: 0;
   bottom: 0;
-
   width: 200%;
   height: 0%;
-
   background: var(--accent);
-
+  clip-path: inherit;
   transition: height 0.4s ease;
-
   z-index: -1;
-
   border-top-left-radius: 40% 20%;
   border-top-right-radius: 40% 20%;
 }
@@ -749,15 +738,41 @@ h3 {
   animation: wave 1s linear infinite;
 }
 
+.section-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  clip-path: inherit;
+  z-index: -3;
+  transition: background 0.3s ease;
+}
+
+.section-btn .inner {
+  position: absolute;
+  inset: 2px;
+  background: var(--bg);
+
+  clip-path: polygon(
+    12% 0%,
+    100% 8%,
+    80% 100%,
+    0% 92%
+  );
+  transition: background 0.3s ease;
+  z-index: -2;
+}
+
+.section-btn:hover .inner {
+  background: transparent;
+}
+
 .section-btn:hover {
   color: var(--bg-code);
-
   transform: translateY(2px);
-
   box-shadow:
     0 0 6px rgba(255, 0, 102, 0.35),
     0 0 12px rgba(153, 204, 255, 0.15);
-
   cursor: var(--cursor-click);
 }
 
@@ -856,8 +871,6 @@ h3 {
   }
 
   .section-btn {
-    width: 42px;
-    height: 42px;
     font-size: 1.4rem;
     opacity: 0.8;
   }
