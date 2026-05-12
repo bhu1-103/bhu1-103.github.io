@@ -694,8 +694,8 @@ h3 {
 .section-btn {
   position: relative;
 
-  width: 52px;
-  height: 52px;
+  width: 42px;
+  height: 42px;
 
   display: flex;
   align-items: center;
@@ -704,7 +704,7 @@ h3 {
   border: 1px solid var(--accent);
   border-radius: 8px;
 
-  background: rgba(10, 10, 10, 0.85);
+  background: rgba(10, 10, 10, 0.2);
   color: var(--text);
 
   text-decoration: none;
@@ -720,7 +720,7 @@ h3 {
     border-color 0.3s ease,
     box-shadow 0.3s ease;
 
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(1.5px);
 }
 
 .section-btn::before {
