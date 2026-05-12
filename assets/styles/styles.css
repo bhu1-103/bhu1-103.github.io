@@ -750,7 +750,7 @@ h3 {
 }
 
 .section-btn:hover {
-  color: var(--balance);
+  color: var(--bg-code);
 
   transform: translateY(2px);
 
