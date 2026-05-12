@@ -569,9 +569,9 @@ mark {
 }
 
 ul li::marker {
-  content: "🢩 ";
+  content: "➯ ";
   color: var(--accent);
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 
 ul {
@@ -704,7 +704,7 @@ h3 {
   border: 1px solid var(--accent);
   border-radius: 8px;
 
-  background: rgba(10, 10, 10, 0.2);
+  background: rgba(0, 0, 0, 0.2);
   color: var(--text);
 
   text-decoration: none;
@@ -749,13 +749,13 @@ h3 {
 }
 
 .section-btn:hover {
-  color: #000;
+  color: var(--counter);
 
   transform: translateY(2px);
 
   box-shadow:
-    0 0 12px rgba(255, 0, 102, 0.35),
-    0 0 24px rgba(153, 204, 255, 0.15);
+    0 0 6px rgba(255, 0, 102, 0.35),
+    0 0 12px rgba(153, 204, 255, 0.15);
 
   cursor: var(--cursor-click);
 }
@@ -849,14 +849,14 @@ h3 {
     transform: scale(1.075);
   }
   .section-nav {
-    bottom: 18px;
-    right: 18px;
+    bottom: 24px;
+    left: 18px;
     gap: 10px;
   }
 
   .section-btn {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
 
     font-size: 1.2rem;
   }
