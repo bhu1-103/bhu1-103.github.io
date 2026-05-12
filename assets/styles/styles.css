@@ -702,7 +702,7 @@ h3 {
   justify-content: center;
 
   border: 1px solid var(--accent);
-  border-radius: 12px;
+  border-radius: 8px;
 
   background: rgba(10, 10, 10, 0.85);
   color: var(--text);
@@ -762,21 +762,6 @@ h3 {
 
 .section-btn:active {
   transform: scale(0.96);
-}
-
-@media (max-width: 600px) {
-  .section-nav {
-    bottom: 18px;
-    right: 18px;
-    gap: 10px;
-  }
-
-  .section-btn {
-    width: 48px;
-    height: 48px;
-
-    font-size: 1.2rem;
-  }
 }
 
 
@@ -862,5 +847,17 @@ h3 {
   }
   .container h2:hover {
     transform: scale(1.075);
+  }
+  .section-nav {
+    bottom: 18px;
+    right: 18px;
+    gap: 10px;
+  }
+
+  .section-btn {
+    width: 48px;
+    height: 48px;
+
+    font-size: 1.2rem;
   }
 }
