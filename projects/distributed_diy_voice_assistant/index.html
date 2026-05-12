@@ -30,7 +30,6 @@
 
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-skyblue-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>My online friends made fun of me because I didn't have a mic.<br>So I made my own mic using my Game Console.<br>That mic evolved into a node for my voice assistant.</p></div></div>
     <img src="./1.png" loading="lazy" height="100" decoding="async" alt="Distributed DIY Voice Assistant" class="project-image">
-    <br>
     <p class="quick-summary">I was unable to afford a microphone, so I made use of my PS Vita as a microphone and ended up using Dear ImGui to make a custom client app for my PS Vita to connect with my computer that is running my custom voice assistant using an Ollama model and lots of algorithms, rules and fuzzy logic.</p>
     <p>Initially I made a single node version of this using my laptop and its inbuilt mic. You can check the below video.</p>
     <iframe class="video-iframe-small" loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/K2AmdQhL7ic?si=wJUnaew_41XoIEKr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -47,7 +46,6 @@
         <li><a class="links2" href="#section05">Client App</a></li>
         <li><a class="links2" href="#yt">Demo Video on YouTube</a></li>
       </ol>
-    <br>
       <section class="part" id="section01">
         <h3>Setting up the Environment</h3>
         <ul>
@@ -126,7 +124,7 @@
         </ul>
           <img class="doc" loading="lazy" decoding="async" src="./9.png" alt="command dictionary">
         <p align="center">Here are some more example commands which demonstrate the assistant being able to do system level tasks like changing volume, brightness, keyboard backlight, taking a screenshot, opening YouTube, etc.</p>
-          But the assistant was <mark>not perfect</mark> when I tried to use it. Since vosk converts human speech to English, a slight difference in accent could make it misunderstand the command and not do anything at all, as it's not defined in it's command dictionary. Therefore, I implemented a <mark>Fuzzy Logic selection method</mark> using <a class="links2" href="https://github.com/rapidfuzz/RapidFuzz">RapidFuzz</a> to make sure it can narrow down what the user has said to something in the command dictionary.<br>
+          But the assistant was <mark>not perfect</mark> when I tried to use it. Since vosk converts human speech to English, a slight difference in accent could make it misunderstand the command and not do anything at all, as it's not defined in it's command dictionary. Therefore, I implemented a <mark>Fuzzy Logic selection method</mark> using <a class="links2" href="https://github.com/rapidfuzz/RapidFuzz">RapidFuzz</a> to make sure it can narrow down what the user has said to something in the command dictionary.
           <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="fuzzy matching code snippet">
           <p align="center">Fuzzy Logic means checking how similar 2 strings are, instead of a strict binary output like <code>both are same</code> or <code>both are not the same</code>. It gives a score on how similar the 2 strings are.</p>
     </div>
@@ -182,10 +180,9 @@
         </ul>
         <img class="doc" loading="lazy" decoding="async" src="./15.png" alt="Screenshot of the program">
       </section>
-      <section class="part" id="yt"><iframe class="video-iframe" src="https://www.youtube.com/embed/bHdj35IZvg8?si=TI8YvQ3Ge5MpAaa7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
+      <section class="part" id="yt"><iframe class="video-iframe" src="https://www.youtube.com/embed/XMh3USXLmfc?si=AXoIniDlr0SiiVAS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></section>
 
     </div>
-    <br>
     <div class="links">
       <a target="_blank" rel="noopener noreferrer" href="https://github.com/bhu1-103">GitHub</a>
       <a href="mailto:103.bhuvan@gmail.com">Email</a>

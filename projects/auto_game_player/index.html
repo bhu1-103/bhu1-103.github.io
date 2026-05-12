@@ -29,7 +29,6 @@
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>15 years later...<br>I'm still trying to beat the game ^_^"</p></div></div>
     <img class="doc" loading="lazy" height="100" decoding="async" src="./1.png" alt="Edge Vision Pipeline: IMX500 → Metadata → Real-Time Control">
-    <br>
     <p class="quick-summary">I’ve revisited this idea multiple times (ずっとずっと) since my university hackathons, where I initially relied on basic OpenCV techniques like color masking. Those approaches felt limited, so I rebuilt the system using the Sony IMX500, running a custom fine-tuned YOLO11 model directly on the sensor. The system operates on metadata only, sending results to a Raspberry Pi (I'll refer to it as RPi from now on) Zero 2 W to drive real-time control via USB HID, forming a low-latency vision → action loop without transferring image data.</p>
     <div class="project-details">
       <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have lower accuracy scores when compared to yolo11.<br>
@@ -49,7 +48,6 @@
         <li><a class="links2" href="#section06">Finishing the loop: Button Input</a></li>
         <li><a class="links2" href="#yt">Demo video on YouTube</a></li>
       </ol>
-    <br>
 
     <section class="part" id="section01">
       <h3>Custom Dataset and Labeling</h3>
@@ -71,8 +69,8 @@
     <section class="part" id="section02">
       <h3>Fine-Tuning on custom dataset</h3>
       <ul>
-        <li>I selected a 70:20:10 split as shown in the image below ⇣<br>
-          <img class="doc" loading="lazy" decoding="async" src="./2.png" alt="dataset split screenshot"><br></li>
+        <li>I selected a 70:20:10 split as shown in the image below ⇣
+          <img class="doc" loading="lazy" decoding="async" src="./2.png" alt="dataset split screenshot"></li>
         <li>This split is required as it is a good balance to make sure the model is tested on all classes of data and doesn't miss anything or trains on less data.</li>
         <li>Using the yolo command line tool, I trained the model on these parameters.<br>
           <code>yolo detect train model=yolo11n.pt data=data.yaml epochs=60 imgsz=416 amp=False batch=8</code></li>
@@ -164,7 +162,7 @@
         </li>
         <li>I was able to achieve such a good <mark>end-to-end latency: 35ms (old)</mark> thanks to <br>
           the sacrifice made earlier → <mark>416x416 tensor size.</mark></li>
-        <li>Update on 5 May, model is not able to keep up with 30 fps. After some trial error, I found 24 fps to be the sweet spot, the <mark>total latency now was 43 ms</mark>. It's such a huge difference but I will figure it out.</li>
+        <li>Update on 5 May, model is not able to keep up with 30 fps for a long time. After some trial error, I found 24 fps to be the sweet spot, the <mark>total latency now was 43 ms</mark>. It's such a huge difference but I will figure it out.</li>
         <li>Code can be checked <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/README.md">here.</a></li>
       </ul>
     </section>
@@ -190,7 +188,7 @@
         <li><mark>2x Servo Motors:</mark> using servo motors to press the physical keys on a keyboard or a controller.</li>
         <li><mark>USB Gadget Mode:</mark> using RPi with USB Gadget Mode where it can pretend to be a USB HID device and send inputs directly via usb cable.</li>
       </ul>
-      I will personally go with the USB Gadget Mode idea. To enable USB Gadget Mode, these 2 files have to be changed ⇣<br>
+      I will personally go with the USB Gadget Mode idea. To enable USB Gadget Mode, these 2 files have to be changed ⇣
       <ul>
         <li><code>sudo nvim /boot/firmware/config.txt</code> under <code>[all]</code> i added <code>dtoverlay=dwc2</code></li>
         <li><code>sudo nvim /boot/firmware/cmdline.txt</code> added <code>modules-load=dwc2</code></li>
@@ -211,7 +209,7 @@
       Here, the RPi (left side window) is pretending to be a keyboard and typing things on my computer (right side small window). I ran the <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/swiss-army-katana/blob/main/fun/dedsec-hack.py">hack.py</a> script on my RPi via <mark>SSH</mark>.<br>
       Then, I wrote some logic for the program to make the RPi use the YOLO bounding boxes to move the player.<br>
 
-      As previously mentioned, I set a few rules in <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/logic_old.py">logic.py</a>⇣ (in no particular order)<br>
+      As previously mentioned, I set a few rules in <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/logic_old.py">logic.py</a>⇣ (in no particular order)
       <ul>
         <li><mark>Always hit the Gas</mark></li>
         <li><mark>Release the Gas Pedal</mark> when <code>player[width] > player[height]</code> - meaning, player has hit an enemy or obstacle and is spinning out.</li>
@@ -224,7 +222,7 @@
         <li>If there are <mark>too many enemies</mark> on the screen, Gas Pedal is released, so that enemies go <code>out of frame and despawn</code></li>
         <li>There is a <mark>line of sight</mark> straight ahead of the player, where if any enemy appears, action from the above algorithms is taken. The line of sight is from the top of the screen until <code>player_pos + player_height * 1.05</code>. The 1.05 product is just to make it jitter proof a bit.</li>
       </ul>
-      All the above rules have relaxants in them to avoid the YOLO jitter as I was using the smallest YOLO model possible. <br> <br>
+      All the above rules have relaxants in them to avoid the YOLO jitter as I was using the smallest YOLO model possible.
     </section>
     
   <h3>Thank You</h3>
