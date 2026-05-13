@@ -708,8 +708,8 @@ h3 {
 
 .section-btn {
   position: relative;
-  width: 42px;
-  height: 42px;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -894,6 +894,8 @@ h3 {
 
   .section-btn {
     font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
     opacity: 0.8;
   }
   .video-iframe-small {
