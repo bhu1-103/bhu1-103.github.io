@@ -896,4 +896,7 @@ h3 {
     font-size: 1.4rem;
     opacity: 0.8;
   }
+  .video-iframe-small {
+    width: 100%;
+  }
 }
