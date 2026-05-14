@@ -16,7 +16,7 @@
   <div class="container">
     <div class="liquid-overlay"></div>
     <div class="top-bar">
-      <h1 class="main-heading">Edge Vision Pipeline x IMX500</h1>
+      <h1 class="main-heading">Auto Game Player x IMX500</h1>
       <a href="../../projects.html" class="projects-btn back-btn">back</a>
     </div>
 
@@ -28,7 +28,7 @@
       </blockquote>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>15 years later...<br>I'm still trying to beat the game ^_^"</p></div></div>
-    <img class="doc" loading="lazy" height="100" decoding="async" src="./1.png" alt="Edge Vision Pipeline: IMX500 → Metadata → Real-Time Control">
+    <img class="doc" loading="lazy" height="100" decoding="async" src="./1.png" alt="Auto Game Player x IMX500">
     <p class="quick-summary">I’ve revisited this idea multiple times (ずっとずっと) since my university hackathons, where I initially relied on basic OpenCV techniques like color masking. Those approaches felt limited, so I rebuilt the system using the Sony IMX500, running a custom fine-tuned YOLO11 model directly on the sensor. The system operates on metadata only, sending results to a Raspberry Pi (I'll refer to it as RPi from now on) Zero 2 W to drive real-time control via USB HID, forming a low-latency vision → action loop without transferring image data.</p>
     <div class="project-details">
       <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have lower accuracy scores when compared to yolo11.<br>
