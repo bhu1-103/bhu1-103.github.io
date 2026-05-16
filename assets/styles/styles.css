@@ -585,10 +585,9 @@ mark {
   letter-spacing: 0.5px;
 }
 
-.mark2 {
+.imp {
   background: transparent;
-  color: var(--peach);
-  font-style: italic;
+  color: var(--accent);
   font-weight: 700;
   letter-spacing: 0.5px;
 }
@@ -698,10 +697,15 @@ img.doc {
 }
 
 h3 {
+  align-items: center;
+  font-family: 'Silkscreen', system-ui, sans-serif;
   color: var(--text);
   text-shadow: 
     2px 2px 4px var(--counter),
     -2px -2px 6px var(--balance);
+  padding: 10px 14px;
+  border-left: 4px solid var(--accent);
+  letter-spacing: 0.1em;
 }
 
 .section-nav {
