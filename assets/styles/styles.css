@@ -585,6 +585,14 @@ mark {
   letter-spacing: 0.5px;
 }
 
+.mark2 {
+  background: transparent;
+  color: var(--peach);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
 ul li::marker {
   content: "➯ ";
   color: var(--accent);
