@@ -28,7 +28,7 @@
       </blockquote>
     </div>
 
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-skyblue-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>My online friends made fun of me because I didn't have a mic.<br>So I made my own mic using my Game Console.<br>That mic evolved into a node for my voice assistant.</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>My online friends made fun of me because I didn't have a mic.<br>So I made my own mic using my Game Console.<br>That mic evolved into a node for my voice assistant.</p></div></div>
     <img src="./1.png" loading="lazy" height="100" decoding="async" alt="Distributed DIY Voice Assistant" class="project-image">
     <p class="quick-summary">I was unable to afford a microphone, so I made use of my PS Vita as a microphone and ended up using Dear ImGui to make a custom client app for my PS Vita to connect with my computer that is running my custom voice assistant using an Ollama model and lots of algorithms, rules and fuzzy logic.</p>
     <p>Initially I made a single node version of this using my laptop and its inbuilt mic. You can check the below video.</p>
@@ -54,7 +54,7 @@
           <img class="doc" loading="lazy" decoding="async" src="./2.png" alt="Hello world program (using vitasdk) where "Pls Work" is printed 20 times">
         </ul>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Hmmm...<br>Those Hexadecimal numbers?<br>Seems like I can transfer it to my PC via WiFi to make a DIY wireless Mic to make calls.
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Hmmm...<br>Those Hexadecimal numbers?<br>Seems like I can transfer it to my PC via WiFi to make a DIY wireless Mic to make calls.
         </p></div></div>
     <div class="project-details">
           <ul>
@@ -72,7 +72,7 @@
           <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="Code for the network stack">
           </ul>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>I used port 2012 because I had this feeling of impending doom when I was writing the code for this.<br>Therefore -> 2012.<br>(。﹏。) don't ask...</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>I used port 2012 because I had this feeling of impending doom when I was writing the code for this.<br>Therefore -> 2012.<br>(。﹏。) don't ask...</p></div></div>
     <div class="project-details">
           <ul>
           <li>After this, I created a socket  called <code>mic_socket</code> at port <code>2012</code>.</li>
@@ -82,7 +82,7 @@
           <img class="doc" loading="lazy" decoding="async" src="./6.png" alt="Mic init code">
           </ul>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>やった<br>Math time<br>(ﾐ^ᆽ^ﾐ)</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>やった<br>Math time<br>(ﾐ^ᆽ^ﾐ)</p></div></div>
     <div class="project-details">
           <ul>
           <li>Since in mic definitions,<br><code>SCE_AUDIO_IN_PARAM_FORMAT_S16_MONO</code><br>→ S16 means <mark>16-bit audio</mark> and <mark>MONO</mark> means single channel audio<br>→ It means each sample is 2 bytes.<br><code>int grain = 256</code>,<br><code>short</code> is 2 bytes,<br>Payload size is <mark>512 bytes</mark><br>Ideal network speed required for this is:<br><code>「16,000 samples/sec ÷ 256 samples/sec」= 62.5 packets/sec</code><br><code>「62.5 packets/sec x 512 bytes」 = 32,000 bytes/sec</code><br>Which is <mark>256 kbps</mark>, which is entirely doable by PSV.</li>
@@ -96,7 +96,7 @@
           <li>Since I use <a target="_blank" rel="noopener noreferrer" class="links2" href="https://archlinux.org/">Linux</a> and <a target="_blank" rel="noopener noreferrer" class="links2" href="https://wiki.archlinux.org/title/PipeWire">PipeWire</a> I can use the <code>pacat</code> command line utility like so to create a fake audio device.</li>
         </ul>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Only Walkie.<br>No Walkie-Talkie yet.<br>Until I implement 2 way communication.<br>(｡╯︵╰｡)</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Only Walkie.<br>No Walkie-Talkie yet.<br>Until I implement 2 way communication.<br>(｡╯︵╰｡)</p></div></div>
     <div class="project-details">
         <ul>
           <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="pacat code to create an audio sink">
@@ -112,7 +112,7 @@
       <section class="part" id="section04">
         <h3>Voice Assistant (alter-ego)</h3>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>It's called alter-ego because this project was heavily inspired by <a target="_blank" rel="noopener noreferrer" class="links2" href="https://danganronpa.fandom.com/wiki/Chihiro_Fujisaki">Chihiro</a> from Danganronpa.</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>It's called alter-ego because this project was heavily inspired by <a target="_blank" rel="noopener noreferrer" class="links2" href="https://danganronpa.fandom.com/wiki/Chihiro_Fujisaki">Chihiro</a> from Danganronpa.</p></div></div>
     <div class="project-details">
       <p>I then made a few rules like <code>"open browser": lambda: (speak("Opening browser"), send2vita("Opening browser"), notify("Opening Browser"), subprocess.Popen(["zen-browser"]))</code></p>
         <ul>
@@ -128,7 +128,7 @@
           <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="fuzzy matching code snippet">
           <p align="center">Fuzzy Logic means checking how similar 2 strings are, instead of a strict binary output like <code>both are same</code> or <code>both are not the same</code>. It gives a score on how similar the 2 strings are.</p>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Simple, effective,<br>elegant<br>ヽ(´▽｀)/</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>Simple, effective,<br>elegant<br>ヽ(´▽｀)/</p></div></div>
     <div class="project-details">
         <ul>
           <li>I can say something like "open browser please" and the fuzzy matcher will match it with every single command and realise that it is an 80% match to the "open browser" command.</li>
@@ -141,7 +141,7 @@
         <img class="doc" loading="lazy" decoding="async" src="./11.png" alt="wake word detection code">
         <p align="center">A voice assistant needs to respond by sound, not by us pressing a button</p>
     </div>
-    <div class="mii-chat"><img src="../../assets/images/avatar/mii-white-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>This was done because once I was yelling at myself "shut up" and it fuzzy matched it to "shutdown" and shutdown my PC...</p></div></div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="mii chat"><div class="chat-bubble"><p>This was done because once I was yelling at myself "shut up" and it fuzzy matched it to "shutdown" and shutdown my PC...</p></div></div>
     <div class="project-details">
         <ul>
           <li>Vosk is set to transcribe everything every time. If it ever hears the word <mark>hey</mark>, it will start listening for commands. Otherwise, it will not run any commands.</li>
