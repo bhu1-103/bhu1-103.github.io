@@ -28,7 +28,7 @@
       </blockquote>
     </div>
     <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat"><div class="chat-bubble"><p>15 years later...<br>I'm still trying to beat the game ^_^"</p></div></div>
-    <img class="doc" loading="lazy" height="100" decoding="async" src="./1.png" alt="Auto Game Player x IMX500">
+    <img class="doc" loading="lazy" height="100" decoding="async" src="./1.webp" alt="Auto Game Player x IMX500">
     <p class="quick-summary">I’ve revisited this idea multiple times (ずっとずっと) since my university hackathons, where I initially relied on basic OpenCV techniques like color masking. Those approaches felt limited, so I rebuilt the system using the Sony IMX500, running a custom fine-tuned YOLO11 model directly on the sensor. The system operates on metadata only, sending results to a Raspberry Pi (I'll refer to it as RPi from now on) Zero 2 W to drive real-time control via USB HID, forming a low-latency vision → action loop without transferring image data.</p>
     <div class="project-details">
       <p>There are various model to choose from. I chose YOLO11 mainly because it has a much more stable and standard way of fine tuning models for the IMX500 sensor specifically. I have also tested various other models as seen in <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/README.md">my GitHub repo</a>, but they have lower accuracy scores when compared to yolo11.<br>
@@ -59,7 +59,7 @@
         <li><a target="_blank" rel="noopener noreferrer" class="links2" href="https://app.roboflow.com/">roboflow</a> → labeling the images</li>
       </ul>
       This is how a labeled image in <mark>roboflow</mark> looks like. On the left, there are the classes and on the right are the bounding boxes I put on all the images. In total, I <mark>labelled 170 images</mark>, which is very few, but I wanted to experiment whether such a small number would be enough given the game's sprites are exactly the same throughout the whole game and there is zero post-processing.
-      <img class="doc" loading="lazy" decoding="async" src="./7.png" alt="roboflow screenshot showing yolo classes and bounding boxes">
+      <img class="doc" loading="lazy" decoding="async" src="./7.webp" alt="roboflow screenshot showing yolo classes and bounding boxes">
     </section>
 
     </div>
@@ -70,19 +70,19 @@
       <h3>Fine-Tuning on custom dataset</h3>
       <ul>
         <li>I selected a 70:20:10 split as shown in the image below ⇣
-          <img class="doc" loading="lazy" decoding="async" src="./2.png" alt="dataset split screenshot"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./2.webp" alt="dataset split screenshot"></li>
         <li>This split is required as it is a good balance to make sure the model is tested on all classes of data and doesn't miss anything or trains on less data.</li>
         <li>Using the yolo command line tool, I trained the model on these parameters.<br>
           <code>yolo detect train model=yolo11n.pt data=data.yaml epochs=60 imgsz=416 amp=False batch=8</code></li>
         <li>As seen here, the precision in the first few epochs are not very good, but improving in the right direction. Main improvement is in <mark>Recall</mark> due to zero post-processing filters and simple sprites in the game. There was one major spike in the <mark>mAP50</mark> in the 4th epoch but the model clearly got overconfident there and reverted back to 0.2s. There is very little improvement in <mark>Precision</mark> and a major dip in <mark>Precision</mark> from <mark>0.698</mark> to <mark>0.0661</mark> but we will see better results much further.
-          <img class="doc" loading="lazy" decoding="async" src="./3.png" alt="epoch 1 to 7 performance screenshot"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./3.webp" alt="epoch 1 to 7 performance screenshot"></li>
         <li>At epoch 36, the model finally scored above <mark>0.85 mAP50</mark>. The <mark>Recall</mark> is also pretty good at around the <mark>~0.85</mark> range. We can see the model has essentially finished learning and reached saturation. The epochs after this give minimal improvement if any.
-          <img class="doc" loading="lazy" decoding="async" src="./4.png" alt="epoch 36 to 42 performance screenshot"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./4.webp" alt="epoch 36 to 42 performance screenshot"></li>
         <li>Since the training was happening so quickly on my GPU, I decided to let it run and watch how it performs by the end of 60 epochs. It reached the <mark>~0.9 mAP50</mark> scores with <mark>~0.9 Recall</mark> which is pretty good. It also produced a good <mark>mAP50-95</mark> score of <mark>~0.74</mark> by the last epoch which is really good for my use case as the game in question uses simple sprites and the YOLO model's capture rate being <mark>16 frames per second</mark>, the model would recognize objects at least once in 2 or 3 frames in the worst case scenario.
-          <img class="doc" loading="lazy" decoding="async" src="./5.png" alt="last 7 epochs, 53-60 screenshot"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./5.webp" alt="last 7 epochs, 53-60 screenshot"></li>
         <li>I initially thought class imbalance would be a problem as there are <code>Lane-Markings</code> in every single image of the dataset, that is why some classes like <code>Obstacle</code> <mark>(0.497)</mark>, <code>Fuel</code> <mark>(0.663)</mark> and <code>Enemy-Blue-Bad</code> <mark>(0.753)</mark> have relatively bad <mark>mAP50</mark> scores. But the model works fine overall.<br>
           A better solution instead of depending on the "it might get detected at least once in 2 frames" hope, I could add more images of the classes that have very less labels to balance the dataset and train the model again. That will definitely get the model to near perfect results, given the simplicity of the classes.
-          <img class="doc" loading="lazy" decoding="async" src="./6.png" alt="final output and scores of model training"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./6.webp" alt="final output and scores of model training"></li>
       </ul>
     </section>
 
@@ -96,13 +96,13 @@
         <li>I have trained the model on my custom dataset. Now, all that remains is to make it usable in the IMX500 camera. The official <a target="_blank" rel="noopener noreferrer" class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#usage-examples">ultralytics documentation</a> shows us how to convert the now fine-tuned model to the IMX500 format.</li>
         <li><code>yolo export model=/home/bhu1/dev/git/RasPi_YOLO/runs/detect/train2/weights/best.pt format=imx data=data.yaml</code><br>
           As seen in the code, the <code>best.pt</code> weights are used again. But, this time, they are used to <mark>export</mark> the model and the format used is <code>format=imx</code>.
-          <img class="doc" loading="lazy" decoding="async" src="./8.png" alt="exporting model to imx500 format">
+          <img class="doc" loading="lazy" decoding="async" src="./8.webp" alt="exporting model to imx500 format">
         </li>
         <li>I just transfered the file to the RPi and this part was done. The 3 most widely used image resolutions are: <code>320x320</code>, <code>416x416</code> and <code>640x640</code>.</li>
         <li><code>640x640</code> is an excellent choice if we need accuracy, but for this project, I need to focus on <mark>latency</mark> as well. Larger <mark>tensor</mark> image means more inference time, I might lose lots of <mark>milliseconds</mark> just to identify a simple sprite on a computer screen.</li>
         <li>In that case <code>320x320</code> must be the best choice, but it's a tradeoff for model quality and results and since my dataset was already imbalanced, I decided to go with the middleground → <code>416x416</code>.</li>
         <li>Once the model exported, I navigated to the output directory to find the <code>packerOut.zip</code>.
-          <img class="doc" loading="lazy" decoding="async" src="./9.png" alt="export files directory">
+          <img class="doc" loading="lazy" decoding="async" src="./9.webp" alt="export files directory">
         </li>
       </ul>
     </section>
@@ -120,7 +120,7 @@
           ├── <code>model_imx_MemoryReport.json</code><br>
           └── <code>model_imx.pbtxt</code><br></li>
         <li>After the basic setup was done, I headed back to the official <a target="_blank" rel="noopener noreferrer" class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#object-detection_1">ultralytics documentation</a> to get the code to run the model on the RPi and ran it on my RPi immediately. That's when I noticed this...
-          <img class="doc" loading="lazy" decoding="async" src="./10.png" alt="running custom model for the first time, but it shows a warning"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./10.webp" alt="running custom model for the first time, but it shows a warning"></li>
         
         <li><code>Large difference between libcamera request rate (33.4 RPS) and detection rate (5.3 DPS).</code><br>
           The code itself ran, the model could draw bounding boxes and everything, but it was horribly slow.
@@ -137,7 +137,7 @@
     <div class="project-details">
       <ul>
         <li>Therefore, I kept running it at <code>1 FPS target</code> knowing I could use a more powerful RPi later when I buy one and since 1 FPS performs well without crashing the RPi.
-          <img class="doc" loading="lazy" decoding="async" src="./11.png" alt="picture of YOLO model drawing bounding boxes even with such a small dataset"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./11.webp" alt="picture of YOLO model drawing bounding boxes even with such a small dataset"></li>
         <li>It wasn't perfect. Honestly, it was bad... But it worked... The model was able to identify something at the very least</li>
         <li>But across the whole internet I was not able to find any information on how to <mark>stream metadata-only</mark>. That's when I thought of checking the <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/raspberrypi/picamera2/tree/main/examples/imx500">picamera2 github repository</a> but I couldn't find anything there.</li>
         </ul>
@@ -146,11 +146,11 @@
     <div class="project-details">
       <ul>
         <li>I then ran the help command for <code>AiCamera</code> from the <code>modlib</code> module: <code>python -c "from modlib.devices import AiCamera; help(AiCamera)".</code>
-          <img class="doc" loading="lazy" decoding="async" src="./12.png" alt="modlib documentation check, found 'headless'"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./12.webp" alt="modlib documentation check, found 'headless'"></li>
         <li><mark>headless</mark> is the component I was finding all this time. After adding the <code>headless=True</code> and modifying the code a little, I was able to see the detections in the terminal. The official <a target="_blank" rel="noopener noreferrer" class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#usage-examples">ultralytics documentation</a> shows that the max achievable framerate is <code>16</code>, so I hardcoded 16 and modified the code to measure latency and found this.
-          <img class="doc" loading="lazy" decoding="async" src="./13.png" alt="metadata only streaming working perfectly"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./13.webp" alt="metadata only streaming working perfectly"></li>
         <li><mark>Latency: 62ms</mark>. But in the official <a target="_blank" rel="noopener noreferrer" class="links2" href="https://docs.ultralytics.com/integrations/sony-imx500/#benchmarks">ultralytics documentation</a> showed that the optimal <mark>inference time = 58.85 ms</mark>. Therefore I removed the hardcoded 16 fps limit and these were my findings.
-          <img class="doc" loading="lazy" decoding="async" src="./14.png" alt="set fps to 30 and achieved an even better latency"></li>
+          <img class="doc" loading="lazy" decoding="async" src="./14.webp" alt="set fps to 30 and achieved an even better latency"></li>
         <li>To my surprise, the <mark>end-to-end latency = 35ms</mark> on average. Yes, this is the round trip latency.<br>
           It includes ⇣
           <ul>
@@ -170,7 +170,7 @@
       <h3>Applying Logic to make the agent smart</h3>
       <ul>
         <li>From the metadata, I found out the positions of the player, enemies, obstacles, lane markings, etc and designed a basic algorithm where the model suggests directions to move as depicted in the image below. It may not be the most advanced system but it is pretty good for a use case like this.
-        <img class="doc" loading="lazy" decoding="async" src="./15.png" alt="model can now tell which side to move, sort of like a guide to play the game"></li>
+        <img class="doc" loading="lazy" decoding="async" src="./15.webp" alt="model can now tell which side to move, sort of like a guide to play the game"></li>
         <li>I have factored in a few rules that must be there no matter how much development this project gets:</li>
         <ul>
           <li>Player car is red. One of the enemy cars is red as well, and the model might think the enemy car is the player car or vice versa. So I made this rule such that: <code>if red_car[y_pos] > 0.75: player_car[pos]=red_car[pos]</code> which means if the car is in the bottom quarter, consider that as player car.</li>
@@ -194,11 +194,11 @@
         <li><code>sudo nvim /boot/firmware/cmdline.txt</code> added <code>modules-load=dwc2</code></li>
       </ul>
       Upon restarting the RPi, I checked the <mark>USB Device Controllers</mark> available.
-      <img class="doc" loading="lazy" decoding="async" src="./16.png" alt="USB Device Controller visible">
+      <img class="doc" loading="lazy" decoding="async" src="./16.webp" alt="USB Device Controller visible">
       Now that I have a USB controller, the RPi can <mark>pretend to be a keyboard</mark> or controller.<br>
       I added <mark>libcompossite</mark> to the modules using: <code>echo libcomposite | sudo tee -a /etc/modules</code>.<br>
       I also wrote a script to initialize the usb gadget.<br>
-      <img class="doc" loading="lazy" decoding="async" src="./17.png" alt="ran fake-keyboard.sh code to activate fake USB HID device on Pi and it worked">
+      <img class="doc" loading="lazy" decoding="async" src="./17.webp" alt="ran fake-keyboard.sh code to activate fake USB HID device on Pi and it worked">
       I have designed this module called <a target="_blank" rel="noopener noreferrer" class="links2" href="https://github.com/bhu1-103/imx-500/blob/main/models/game-agent-01/fake_keyboard_old.py">fake_keyboard.py</a> which is basically a dictionary of all keyboard keys and has functions to do things like this ⇣
       <video class="doc" autoplay muted loop playsinline>
         <source src="./18.mp4" type="video/mp4" alt="running hack.py, a demo code that pretends like a rubber ducky to print a 'you have been hacked' message">
