@@ -13,6 +13,15 @@
   --cursor-click: url('../cursors/cursor-click.png') 16 5, pointer;
 }
 
+#bgfx {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+}
+
 html {
   font-size: 18px;
   scroll-behavior: smooth;
