@@ -53,7 +53,7 @@ done
 
 #adding project to projects.html
 last_project=$(grep -n project-header projects.html | tail -n 1 | awk -F ":" '{print $1}')
-current_project=$(( last_project + 8 ))
+current_project=$(( last_project + 13 ))
 
 add2main=$(cat ./.templates/project-add2main.html)
 
