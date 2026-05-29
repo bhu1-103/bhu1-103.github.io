@@ -917,6 +917,22 @@ tbody tr:not(:last-child) th {
   box-shadow: 0 0 25px rgba(255, 0, 102, 0.3);
 }
 
+.strikethrough {
+  position: relative;
+  display: inline-block;
+}
+
+.strikethrough::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 8px;
+  background: var(--text-fg);
+  transform: translateY(-50%);
+}
+
 
 @media (max-width: 600px) {
 
