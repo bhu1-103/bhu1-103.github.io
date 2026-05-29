@@ -54,8 +54,8 @@
       <ol>
         <li><a class="links2" href="#section01">Navidrome</a></li>
         <li><a class="links2" href="#section02">The lighting</a></li>
-        <li><a class="links2" href="#section03">Embedding Model</a></li>
-        <li><a class="links2" href="#section04">Section</a></li>
+        <li><a class="links2" href="#section03">Semantic Search Setup</a></li>
+        <li><a class="links2" href="#section04">Semantic Search Implementation</a></li>
         <li><a class="links2" href="#section05">Section</a></li>
         <li><a class="links2" href="#section06">Section</a></li>
         <li><a class="links2" href="#section07">Section</a></li>
@@ -155,7 +155,7 @@
       </ul>
       </section>
       <section class="part" id="section03">
-        <h3>Embedding Model</h3>
+        <h3>Semantic Search Setup</h3>
         <ul>
           <li>I realised I had one embedding model in Ollama I never used: <a target="_blank" rel="noreferrer"
               class="links2" href="https://ollama.com/library/nomic-embed-text">nomic-embed-text</a>. I looked around
@@ -165,22 +165,42 @@
             <img class="doc" loading="lazy" decoding="async" src="./7.webp"
               alt="screenshot of https://codepen.io/meodai/full/pXNpXe showing the color index from meodai/color-names">
           </li>
-          <li>I tried using nomic-embed-text to <mark>generate embeddings</mark>, but it was taking a long time and it
-            was on my PC from a very long time, so I searched ollama's model directory for newer and smaller models. I
-            found a few that would fit my use case. <a target="_blank" rel="noreferrer" class="links2"
+        </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat">
+      <div class="chat-bubble">
+        <p>So... uhh....<br>A thesaurus that needs a graphics card<br>(ㆆ_ㆆ)
+        </p>
+      </div>
+    </div>
+    <div class="project-details">
+      <ul>
+        <li>I tested semantic search with just the key value pairs from <code>colors.json</code>, but the results were
+          underwhelming. So I decided to add <mark>another layer</mark> of computa- ahem, <mark>intelligence</mark> to
+          the program. My plan was something like this:<br>&emsp;We get a tiny LLM to take the color names as input
+          and generate 5 other words/phrases that could match it closely. Then we find the embeddings of these. This
+          would make it drastically easy for the embedding model to match an input prompt to any of the colors.</li>
+      </ul>
+      </section>
+      <section class="part" id="section04">
+        <h3>Semantic Search Implementation</h3>
+        <ul>
+          <li>I searched ollama's model directory for newer and smaller models. I found a few that would fit my use
+            case. <a target="_blank" rel="noreferrer" class="links2"
               href="https://ollama.com/library/all-minilm">all-minilm, </a> and <a target="_blank" rel="noreferrer"
               class="links2" href="https://ollama.com/library/snowflake-arctic-embed2">snowflake-arctic-embed</a> and
             IBM's embedding model:<a target="_blank" rel="noreferrer" class="links2"
               href="https://ollama.com/library/granite-embedding"> Granite</a>. I went on to benchmark some of the
-            models.
+            Embedding Models (I call it the great Embedding Model BakeOff May Week-4 2026 Edition to see which of these
+            cooks my PC first).
           </li>
-
+          <br>
           <table>
             <thead>
               <tr>
                 <th>Model</th>
                 <th>Time Taken</th>
-                <th>Quality (my opinion)</th>
+                <th>Quality (opinionated)</th>
                 <th>Notes</th>
                 <th>Results</th>
               </tr>
@@ -260,24 +280,116 @@
               </tr>
             </tbody>
           </table>
-
-          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
+          <br>
         </ul>
-      </section>
-      <section class="part" id="section04">
-        <h3>HEADING</h3>
-        <ul>
-          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
-        </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat">
+      <div class="chat-bubble">
+        <p>I just like Qwen alirght?<br>Definitely not sponsored by Alibaba...<br>shhh...
+        </p>
+      </div>
+    </div>
+    <div class="project-details">
+      <ul>
+        <li>I also <mark>benchmarked a few qwen LLMs</mark> as well. Below are the results of the LLM BakeOff May Week-4
+          2026 Edition:
+        </li>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Speed</th>
+              <th>Quality</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">qwen3.5:0.8b</th>
+              <td>medium</td>
+              <td>Best overall</td>
+              <td>Good creativity</td>
+            </tr>
+            <tr>
+              <th scope="row">qwen3:4b</th>
+              <td>slowest</td>
+              <td>Straight up bad</td>
+              <td>"aktually 🤓☝️" and harder to follow rules</td>
+            </tr>
+            <tr>
+              <th scope="row">qwen3:1.7b</th>
+              <td>fast</td>
+              <td>Cinematic</td>
+              <td>Very good but always "soft glow", "ethereal", "muted tones"</td>
+            </tr>
+            <tr>
+              <th scope="row">qwen3:0.6b</th>
+              <td>fast</td>
+              <td>Repetitive</td>
+              <td>Same as 1.7b but obsessed with "ethereal"</td>
+            </tr>
+            <tr>
+              <th scope="row">qwen2.5:0.5b</th>
+              <td>fastest</td>
+              <td>Alright</td>
+              <td>Very basic model, just sticks to catchphrases like "ethereal"</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <li>These models actually got close to <mark>baking-off</mark> my PC, even 1 generation was taking close to 20
+          seconds sometimes, and I had to do this for 31k colors. I did the "smart thing" and <mark>ran it for a
+            few demo prompts</mark> only. Therefore, the results may not be perfect. Upon that, I believe my prompt
+          engineering could be better. I got ChatGPT to make this prompt for me because I'm not that good at talking to
+          small LLMS. Generating tags for each of the colors using <code>Qwen 3.5: 0.5b</code> took approximately 6
+          hours.
+        </li>
+        <img class="doc" loading="lazy" decoding="async" src="./8.webp" alt="Prompt for Qwen, courtesy: ChatGPT">
+        <p align="center">Prompt to run it locally on my 3GB vram GTX 1060.</p>
+        <li>Now that the <code>LLM had generated</code> ~5 (excluding negative prompts which were filtered) extra tags
+          for each of the 31k colors, I ran a loop, found embeddings for all of them and saved them in numpy verctor
+          arrays, because we gonna do some <code>vector math</code> . This process took approximately 8 minutes.
+        </li>
+        <img class="doc" loading="lazy" decoding="async" src="./9.webp"
+          alt="Code snippet showing embeddings getting appeneded into the numpy array">
+        <p align="center">Prompt to run it locally on my 3GB vram GTX 1060.</p>
+        <li>Now, I just have to make a script where I ask for a <mark>mood</mark> and the python script does the
+          <code>semantic search</code> in the numpy vector array and ranks the top 8 colors with the most embedding
+          matching. It first generates an embedding for input text, then searches the array using <code>cosine
+            similarity</code>.
+        </li>
+      </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat">
+      <div class="chat-bubble">
+        <p>So it finds the <strong>"direction"</strong> of the input phrase.<br>Get it? Get it?<br>(✖╭╮✖)<br>Ugh...
+          nevermind
+        </p>
+      </div>
+    </div>
+    <div class="project-details">
+      <ul>
+        <img class="doc" loading="lazy" decoding="async" src="./10.webp" alt="">
+        <li>After this, I simply use the same <makr>Gradient Light</makr> from <a class="links2"
+            href="#section02">earlier</a> and TA-DA!!</li>
+      </ul>
       </section>
       <section class="part" id="section05">
-        <h3>HEADING</h3>
+        <h3>Youtube Demo</h3>
         <ul>
-          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
+          <li>A few screenshots of the colors being generated by the semantic engine.</li>
+          <div class="gallery">
+            <img src="18.webp" alt="example of colors generated for: cyberpunk bright neon">
+            <img src="13.webp" alt="example of colors generated for: cyberpunk bubblegum">
+            <img src="11.webp" alt="example of colors generated for: blood pain anger ">
+            <img src="12.webp" alt="example of colors generated for: deep sea">
+            <img src="14.webp" alt="example of colors generated for: snow">
+            <img src="15.webp" alt="example of colors generated for: green field with blue sky">
+            <img src="16.webp" alt="example of colors generated for: hell">
+            <img src="17.webp" alt="example of colors generated for: heaven">
+          </div>
+          <li>Yet to record, edit and upload video</li>
         </ul>
       </section>
 

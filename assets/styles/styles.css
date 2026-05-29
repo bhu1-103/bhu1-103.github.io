@@ -899,6 +899,24 @@ tbody tr:not(:last-child) th {
   border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
+.gallery {
+  display: flex;
+  gap: 12px;
+  padding: 0 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery img {
+  height: 300px;
+  width: auto;
+  scroll-snap-align: center;
+  border-radius: 12px;
+  margin: 1.5rem auto;
+  border: 1px solid rgba(255, 0, 102, 0.5);
+  box-shadow: 0 0 25px rgba(255, 0, 102, 0.3);
+}
+
 
 @media (max-width: 600px) {
 
