@@ -165,6 +165,7 @@ h2 {
   padding: 0 12px;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-indent: 1em;
@@ -552,11 +553,8 @@ h2:after {
   content: "// overview // "
 }
 
-.project-details
-
-/*> p:first-of-type*/
-  {
-  /*text-indent: 3em;*/
+.project-details>p:first-of-type {
+  text-indent: 3em;
 }
 
 .project-details {
@@ -565,8 +563,8 @@ h2:after {
 
 .haiku {
   font-family: 'DynaPuff', system-ui, sans-serif;
-  /*font-style: ; /*change*/
-  */ font-size: 1.2rem;
+  /*font-style: ; change*/
+  font-size: 1.2rem;
   color: var(--text);
   line-height: 1.6;
   text-align: center;
@@ -866,6 +864,42 @@ h3 {
 }
 
 
+table {
+  width: 100%;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+}
+
+td,
+th {
+  border-right: 1px solid rgba(255, 255, 255, .08);
+}
+
+td:last-child,
+th:last-child {
+  border-right: none;
+}
+
+tbody tr:not(:last-child) td,
+tbody tr:not(:last-child) th {
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+
 @media (max-width: 600px) {
 
   p,
@@ -904,7 +938,7 @@ h3 {
     line-height: 1.8;
   }
 
-  .projects-btn {}
+  /*.projects-btn {}*/
 
   .main-heading,
   .main-heading-homepage {
@@ -960,7 +994,7 @@ h3 {
     font-size: 0.95rem;
   }
 
-  .links2 {}
+  /*.links2 {}*/
 
   .links2:active {
     color: var(--text);

@@ -144,7 +144,8 @@
           .env file so that I can manually set the brightness or control it based on time of day or other external
           factors. Letting the album art decide the Brightness value is kind of like a missed opportunity in my opinion.
         </li>
-        <img class="doc" loading="lazy" decoding="async" src="./6.webp" alt="code snippet containing the loop for ">
+        <img class="doc" loading="lazy" decoding="async" src="./6.webp"
+          alt="code snippet containing the loop for gradient light">
         <li>It takes 60 seconds to go from <mark>hue n</mark> to <mark>hue n + 1</mark>. <mark>pyqizlight</mark> uses
           the asyncio library. Thanks to it, I was able to learn about <mark>non blocking loops</mark>, or else it would
           have been like my <a target="_blank" rel="noreferrer" class="links2"
@@ -162,7 +163,7 @@
               href="https://github.com/meodai/color-names">color-names</a>. It is a list of colors with the name of the
             color being something a human would say, like the ones below. I knew this was perfect for semantic search.
             <img class="doc" loading="lazy" decoding="async" src="./7.webp"
-              alt="code snippet showing how the color extraction works, it puts all the colors into 32 buckets and returns the top 5 most populous buckets">
+              alt="screenshot of https://codepen.io/meodai/full/pXNpXe showing the color index from meodai/color-names">
           </li>
           <li>I tried using nomic-embed-text to <mark>generate embeddings</mark>, but it was taking a long time and it
             was on my PC from a very long time, so I searched ollama's model directory for newer and smaller models. I
@@ -170,15 +171,16 @@
               href="https://ollama.com/library/all-minilm">all-minilm, </a> and <a target="_blank" rel="noreferrer"
               class="links2" href="https://ollama.com/library/snowflake-arctic-embed2">snowflake-arctic-embed</a> and
             IBM's embedding model:<a target="_blank" rel="noreferrer" class="links2"
-              href="https://ollama.com/library/granite-embedding"> Granite</a>.
+              href="https://ollama.com/library/granite-embedding"> Granite</a>. I went on to benchmark some of the
+            models.
           </li>
 
           <table>
             <thead>
               <tr>
                 <th>Model</th>
-                <th>Speed (generating 31k embeddings)</th>
-                <th>Quality</th>
+                <th>Time Taken</th>
+                <th>Quality (my opinion)</th>
                 <th>Notes</th>
                 <th>Results</th>
               </tr>
@@ -194,7 +196,9 @@
                     Truth be told, it seems like this is better for RAG than creative tasks. Still very 🧠🪦
                   </details>
                 </td>
-                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_ibm-granite-33m.md">check here</a></td>
+                <td><a target="_blank" rel="noreferrer" class="links2"
+                    href="https://github.com/bhu1-103/over_engineered-light_bulb/blob/main/smart-color-selector/embedding_model_cookoff/emb_ibm-granite-33m.md">check
+                    here</a></td>
               </tr>
 
               <tr>
@@ -202,7 +206,9 @@
                 <td>00:09:52</td>
                 <td>excellent</td>
                 <td>it's better than 33m variant, but feels robotic</td>
-                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_all-minilm-22m.md">check here</a></td>
+                <td><a target="_blank" rel="noreferrer" class="links2"
+                    href="https://github.com/bhu1-103/over_engineered-light_bulb/blob/main/smart-color-selector/embedding_model_cookoff/emb_all-minilm-22m.md">check
+                    here</a></td>
               </tr>
 
               <tr>
@@ -210,7 +216,9 @@
                 <td>00:11:13</td>
                 <td>good</td>
                 <td>no soul + a bit corpo</td>
-                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_all-minilm-33m.md">check here</a></td>
+                <td><a target="_blank" rel="noreferrer" class="links2"
+                    href="https://github.com/bhu1-103/over_engineered-light_bulb/blob/main/smart-color-selector/embedding_model_cookoff/emb_all-minilm-33m.md">check
+                    here</a></td>
               </tr>
 
               <tr>
@@ -218,7 +226,8 @@
                 <td>00:08:07</td>
                 <td>excellent</td>
                 <td>perfect model for this use case</td>
-                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_snowflake-arctic-embed-22m.md">check
+                <td><a target="_blank" rel="noreferrer" class="links2"
+                    href="https://github.com/bhu1-103/over_engineered-light_bulb/blob/main/smart-color-selector/embedding_model_cookoff/emb_snowflake-arctic-embed-22m.md">check
                     here</a></td>
               </tr>
 
@@ -227,7 +236,8 @@
                 <td>00:09:36</td>
                 <td>good</td>
                 <td>loses character compared to smaller model</td>
-                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_snowflake-arctic-embed-33m.md">check
+                <td><a target="_blank" rel="noreferrer" class="links2"
+                    href="https://github.com/bhu1-103/over_engineered-light_bulb/blob/main/smart-color-selector/embedding_model_cookoff/emb_snowflake-arctic-embed-33m.md">check
                     here</a></td>
               </tr>
 
