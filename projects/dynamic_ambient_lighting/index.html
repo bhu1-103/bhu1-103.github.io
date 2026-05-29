@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Bhuvan's Project with Environmental Lighting ">
+  <meta name="description" content="Bhuvan's Project with Over Engineered Light Bulb">
   <title>bhu1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,7 +18,7 @@
     <div class="liquid-overlay"></div>
     <canvas id="bgfx"></canvas>
     <div class="top-bar">
-      <h1 class="main-heading">Dynamic Ambient Lighting</h1>
+      <h1 class="main-heading">Over Engineered Light Bulb</h1>
       <a href="../../projects.html" class="projects-btn back-btn">back</a>
     </div>
 
@@ -37,21 +37,24 @@
     <img src="./1.webp" alt="Dynamic Ambient Lighting" class="project-image">
     <strong>
       <div class="links" align="center"><a target="_blank" rel="noopener noreferrer"
-          href="https://github.com/bhu1-103/environmental-lighting">View GitHub repo
+          href="https://github.com/bhu1-103/over_engineered-light_bulb">View GitHub repo
           here</a></div>
     </strong>
 
     <p class="quick-summary">I have a huge collection of music and wanted to make the listening experience in Navidrome
       better and more immersive. So I used a Philips WiZ light bulb and designed a system that smoothly transitions my
       room lighting between the 5 most dominant colors of the currently playing album art to keep the experience
-      intimate and cohesive.</p>
+      intimate and cohesive.<br>&emsp;Somehow, that led me into the embedding model rabbithole. Soon enough, I had a
+      system where I could type a prompt like "soft relaxing bright" or "campfire" or "deep sea" or anything at all and
+      my room's lights would change to that. I learnt a lot of things like, why bigger model is not always better, etc.
+    </p>
     <div class="project-details">
       <section class="part" id="toc"></section>
       <p><strong>Table of contents →</strong></p>
       <ol>
-        <li><a class="links2" href="#section01">Section</a></li>
-        <li><a class="links2" href="#section02">Section</a></li>
-        <li><a class="links2" href="#section03">Section</a></li>
+        <li><a class="links2" href="#section01">Navidrome</a></li>
+        <li><a class="links2" href="#section02">The lighting</a></li>
+        <li><a class="links2" href="#section03">Embedding Model</a></li>
         <li><a class="links2" href="#section04">Section</a></li>
         <li><a class="links2" href="#section05">Section</a></li>
         <li><a class="links2" href="#section06">Section</a></li>
@@ -59,43 +62,212 @@
       </ol>
       <br>
       <section class="part" id="section01">
-        <h3>HEADING</h3>
+        <h3>Navidrome</h3>
         <ul>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
+          <li>I was checking my PS Vita's app store and came across this music streaming client, <a target="_blank"
+              rel="noreferrer" class="links2" href="https://nekomimi.tilde.team/docs/nekodrome/">Nekodrome</a> by
+            NekoMimi which looked cooler than the Jellyfin client on PSV. That's when I thought I needed a <a
+              target="_blank" rel="noreferrer" class="links2" href="https://www.navidrome.org/">Navidrome</a> server.
+            It took me some time to understand how it works and how I can make it truly mine.
+          <li>The web client was <mark>working</mark>, the PSV client was working, Android client was working. I soon
+            discovered a problem where the metadata and artist tags were not perfect. And some albums missed <mark>Album
+              Art</mark>. It reminded me of <a target="_blank" rel="noreferrer" class="links2"
+              href="https://picard.musicbrainz.org/">MusicBrainz Picard</a> as I had seen it in <a target="_blank"
+              rel="noreferrer" class="links2" href="https://summerofcode.withgoogle.com/">GSOC</a> organizations list.
+            With Picard and Navidrome, one can essentially host their own music streaming service with no ads or low
+            quality music.
+          </li>
+          <li>I carefully added Metadata to all my music using <mark>Picard</mark> and got <a target="_blank"
+              rel="noreferrer" class="links2" href="https://github.com/dweymouth/supersonic">Supersonic</a> on my PC. I
+            saw the blur in the background and thought, "<mark>How cool would it be if that background leaked outside
+              the monitor...</mark>".</li>
+          <img class="doc" loading="lazy" decoding="async" src="./2.webp"
+            alt="MCR's 'I Brought You My Bullets, You Brought Me Your Love' album playing on Supersonic with a background blur">
+          </li>
         </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat">
+      <div class="chat-bubble">
+        <p>It's good that I'm immune to seizure-inducing graphics or else i'd be<br>(°o°:;)<br>
+        </p>
+      </div>
+    </div>
+    <div class="project-details">
+      <ul>
+        <li>It was time to put my WiZ Light Bulb to some use and finally making a project other than, <mark>"Oh look, my
+            room only has light when I am typing on my keyboard. This motivates me to type more and more"</mark>. I
+          setup <a target="_blank" rel="noreferrer" class="links2"
+            href="https://github.com/sbidy/pywizlight">pywizlight</a> in a fresh virtual environment. I also checked how
+          Navidrome's <a target="_blank" rel="noreferrer" class="links2"
+            href="https://www.navidrome.org/docs/developers/subsonic-api/">API</a> works and played around with cURL a
+          bit. I was able to pipe it through <a target="_blank" rel="noreferrer" class="links2"
+            href="https://jqlang.org/">jq</a> and get track name, etc and write a shell script that could do something
+          like this below. Check out the code <a target="_blank" rel="noreferrer" class="links2"
+            href="https://github.com/bhu1-103/over_engineered-light_bulb/blob/main/album-based-lighting/play-fetch.py">here</a>.
+        </li>
+        <img class="doc" loading="lazy" decoding="async" src="./3.webp"
+          alt="fetch script like neofetch that shows currently playing album along with album art">
+      </ul>
       </section>
       <section class="part" id="section02">
-        <h3>HEADING</h3>
+        <h3>The Lighting</h3>
         <ul>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
+          <li>I used the <code>dotenv</code> library to setup the variables like so. There are 2 modes in the script.
+            <mark>Mode 1</mark> ends the lighting show after the current album stops playing . Whereas <mark>Mode
+              2</mark> dynamically checks everytime album has changed and crossfades the colors.
+          </li>
+          <img class="doc" loading="lazy" decoding="async" src="./4.webp"
+            alt="dotenv variables, like navidrome passoword, light bulb ip address, brightness and finally a 'mode' fror lighting">
+          <li>Hues are extracted using <a target="_blank" rel="noreferrer" class="links2"
+              href="https://github.com/python-pillow/Pillow">pillow</a>. First, the Album-Art image is reduced to
+            <code>64x64</code>.
+            Then the colorspace is changed to the <code>HSV</code> format. I intentionally reduced the hue resolution
+            and cranked up saturation and brightness, so that I can get sharp colors instead of having to deal with 100
+            different shades of red. Now, I can have upto <mark>32 colors</mark> as input.
+          </li>
         </ul>
+    </div>
+    <div class="mii-chat"><img src="../../assets/images/avatar/mii-red-bg.png" class="chat-avatar" alt="Mii Chat">
+      <div class="chat-bubble">
+        <p>32 colors here does not limit me to 32 light colors, I have a trick to get the full 16.7 million colors (^_-)
+        </p>
+      </div>
+    </div>
+    <div class="project-details">
+      <ul>
+        <img class="doc" loading="lazy" decoding="async" src="./5.webp"
+          alt="code snippet showing how the color extraction works, it puts all the colors into 32 buckets and returns the top 5 most populous buckets">
+        <li>Once we get the top 5 colors, we can use a simple for loop and go from <mark>lowest to highest</mark> (like
+          a gradient) of the 5 selected hues by adding small increments. While converting hues back to RGB (that's the
+          format pywizlight works with) I hardcoded the <mark>Saturation</mark> and <mark>Brightness</mark> values to
+          1.0 because I did not want the album art to control brightness. I have used <code>BRIGHTNESS</code> in the
+          .env file so that I can manually set the brightness or control it based on time of day or other external
+          factors. Letting the album art decide the Brightness value is kind of like a missed opportunity in my opinion.
+        </li>
+        <img class="doc" loading="lazy" decoding="async" src="./6.webp" alt="code snippet containing the loop for ">
+        <li>It takes 60 seconds to go from <mark>hue n</mark> to <mark>hue n + 1</mark>. <mark>pyqizlight</mark> uses
+          the asyncio library. Thanks to it, I was able to learn about <mark>non blocking loops</mark>, or else it would
+          have been like my <a target="_blank" rel="noreferrer" class="links2"
+            href="https://8hu.one/projects/distributed_diy_voice_assistant/index.html">Voice Assistant</a> project where
+          everything was being blocked because it was single threaded.<br><br>
+          And that's how I was able to get reactive lights based on currently playing album.</li>
+      </ul>
       </section>
       <section class="part" id="section03">
-        <h3>HEADING</h3>
+        <h3>Embedding Model</h3>
         <ul>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
+          <li>I realised I had one embedding model in Ollama I never used: <a target="_blank" rel="noreferrer"
+              class="links2" href="https://ollama.com/library/nomic-embed-text">nomic-embed-text</a>. I looked around
+            duckduckgo for a while and came across <a target="_blank" rel="noreferrer" class="links2"
+              href="https://github.com/meodai/color-names">color-names</a>. It is a list of colors with the name of the
+            color being something a human would say, like the ones below. I knew this was perfect for semantic search.
+            <img class="doc" loading="lazy" decoding="async" src="./7.webp"
+              alt="code snippet showing how the color extraction works, it puts all the colors into 32 buckets and returns the top 5 most populous buckets">
+          </li>
+          <li>I tried using nomic-embed-text to <mark>generate embeddings</mark>, but it was taking a long time and it
+            was on my PC from a very long time, so I searched ollama's model directory for newer and smaller models. I
+            found a few that would fit my use case. <a target="_blank" rel="noreferrer" class="links2"
+              href="https://ollama.com/library/all-minilm">all-minilm, </a> and <a target="_blank" rel="noreferrer"
+              class="links2" href="https://ollama.com/library/snowflake-arctic-embed2">snowflake-arctic-embed</a> and
+            IBM's embedding model:<a target="_blank" rel="noreferrer" class="links2"
+              href="https://ollama.com/library/granite-embedding"> Granite</a>.
+          </li>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Speed (generating 31k embeddings)</th>
+                <th>Quality</th>
+                <th>Notes</th>
+                <th>Results</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">granite:33m</th>
+                <td>00:16:03</td>
+                <td>linkedin 🧠📉</td>
+                <td>
+                  <details>
+                    <summary>i would use rapidfuzz or pywal instead, like a caveman</summary>
+                    Truth be told, it seems like this is better for RAG than creative tasks. Still very 🧠🪦
+                  </details>
+                </td>
+                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_ibm-granite-33m.md">check here</a></td>
+              </tr>
+
+              <tr>
+                <th scope="row">all-minilm:22m</th>
+                <td>00:09:52</td>
+                <td>excellent</td>
+                <td>it's better than 33m variant, but feels robotic</td>
+                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_all-minilm-22m.md">check here</a></td>
+              </tr>
+
+              <tr>
+                <th scope="row">all-minilm:33m</th>
+                <td>00:11:13</td>
+                <td>good</td>
+                <td>no soul + a bit corpo</td>
+                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_all-minilm-33m.md">check here</a></td>
+              </tr>
+
+              <tr>
+                <th scope="row">snowflake-arctic-embed:22m</th>
+                <td>00:08:07</td>
+                <td>excellent</td>
+                <td>perfect model for this use case</td>
+                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_snowflake-arctic-embed-22m.md">check
+                    here</a></td>
+              </tr>
+
+              <tr>
+                <th scope="row">snowflake-arctic-embed:33m</th>
+                <td>00:09:36</td>
+                <td>good</td>
+                <td>loses character compared to smaller model</td>
+                <td><a href="./smart-color-selector/embedding_model_cookoff/emb_snowflake-arctic-embed-33m.md">check
+                    here</a></td>
+              </tr>
+
+              <tr>
+                <th scope="row">
+                  <details>
+                    <summary>larger models</summary>
+                    nomic-embed-moe, bge-m3, mxbai-embed-large
+                  </details>
+                </th>
+                <td>1-2 hours</td>
+                <td>bad</td>
+                <td>not really good for this use case</td>
+                <td>
+                  <details>
+                    <summary>NA</summary>
+                    not gonna waste any more time
+                  </details>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
         </ul>
       </section>
       <section class="part" id="section04">
         <h3>HEADING</h3>
         <ul>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
+          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
+          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
+          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
         </ul>
       </section>
       <section class="part" id="section05">
         <h3>HEADING</h3>
         <ul>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
-          <li><a target="_blank" rel=noreferrer" class="links2" href="">ok</a> → </li>
+          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
+          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
+          <li><a target="_blank" rel="noreferrer" class="links2" href="">ok</a> → </li>
         </ul>
       </section>
 
