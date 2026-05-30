@@ -864,6 +864,10 @@ h3 {
 }
 
 
+.table-scroll {
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
   border: 2px solid var(--accent);
@@ -898,6 +902,8 @@ tbody tr:not(:last-child) td,
 tbody tr:not(:last-child) th {
   border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
+
+
 
 .gallery {
   display: flex;
