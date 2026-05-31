@@ -135,12 +135,12 @@
         <img class="doc" loading="lazy" decoding="async" src="./5.webp"
           alt="code snippet showing how the color extraction works, it puts all the colors into 32 buckets and returns the top 5 most populous buckets">
         <li>Once we get the top 5 colors, we can use a simple for loop and go from <mark>lowest to highest</mark> (like
-          a gradient) of the 5 selected hues by adding small increments. While converting hues back to RGB (that's the
-          format pywizlight works with) I hardcoded the <mark>Saturation</mark> and <mark>Brightness</mark> values to
-          1.0 because I did not want the album art to control brightness. I have used <code>BRIGHTNESS</code> in the
-          .env file so that I can manually set the brightness or control it based on time of day or other external
-          factors. Letting the album art decide the Brightness value is kind of like a missed opportunity in my opinion.
-        </li>
+          a gradient -> to get all colors instead of just 32) of the 5 selected hues by adding small increments. While
+          converting hues back to RGB (that's the format pywizlight works with) I hardcoded the <mark>Saturation</mark>
+          and <mark>Brightness</mark> values to 1.0 because I did not want the album art to control brightness. I have
+          used <code>BRIGHTNESS</code> in the .env file so that I can manually set the brightness or control it based on
+          time of day or other external factors. Letting the album art decide the Brightness value is kind of like a
+          missed opportunity in my opinion.</li>
         <img class="doc" loading="lazy" decoding="async" src="./6.webp"
           alt="code snippet containing the loop for gradient light">
         <li>It takes 60 seconds to go from <mark>hue n</mark> to <mark>hue n + 1</mark>. <mark>pyqizlight</mark> uses
